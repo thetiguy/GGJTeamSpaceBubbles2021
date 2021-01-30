@@ -12,7 +12,6 @@ def main():
     """Main method"""
     window = MysteryGangWindow(
         SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, resizable=True)
-    window.init_game()
     arcade.run()
 
 if __name__ == "__main__":

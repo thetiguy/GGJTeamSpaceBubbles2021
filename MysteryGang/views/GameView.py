@@ -72,11 +72,13 @@ class GameView(arcade.View):
         For a full list of keys, see:
         http://arcade.academy/arcade.key.html
         """
-        print(f'key: {key}, modifiers: [{key_modifiers}]')
+        if self.window.dump_keys:
+            print(f'key: {key}, modifiers: [{key_modifiers}]')
 
         is_cap = (key_modifiers & arcade.key.MOD_SHIFT or
                   key_modifiers & arcade.key.MOD_CAPSLOCK)
-        if key < 126:  # ASCII press, ignore ESC
+        is_ctrl = key_modifiers & arcade.key.MOD_CTRL
+        if key < 126 and not is_ctrl:  # ASCII press, ignore ESC
             key_val = chr(key)
             if is_cap:
                 key_val = key_val.upper()
@@ -87,7 +89,8 @@ class GameView(arcade.View):
         else:
             key_val = 'not mapped yet'
 
-        print(f"'{key_val}'")
+        if self.window.dump_keys:
+            print(f"'{key_val}'")
 
     def on_key_release(self, key, key_modifiers):
         """Called whenever the user lets off a previously pressed key."""

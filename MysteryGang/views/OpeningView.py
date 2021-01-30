@@ -1,7 +1,5 @@
 import arcade
 
-from . import GameView
-
 
 class OpeningView(arcade.View):
     def __init__(self):
@@ -10,19 +8,6 @@ class OpeningView(arcade.View):
     def on_show(self):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.color.CELESTIAL_BLUE)
-
-    def on_key_press(self, key, key_modifiers):
-        """Called whenever a key on the keyboard is pressed."""
-        self.start_game()
-
-    def on_mouse_press(self, x, y, button, key_modifiers):
-        """Called when the user presses a mouse button."""
-        self.start_game()
-
-    def start_game(self):
-        game_view = GameView()
-        game_view.setup()
-        self.window.show_view(game_view)
 
     def on_draw(self):
         """ Draw this view """

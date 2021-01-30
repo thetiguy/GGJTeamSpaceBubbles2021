@@ -32,13 +32,15 @@ class ChatPane(Pane):
         # update chat window
         self.render_messages()
 
-    def recv_msg(self, source, message, attachment=None):
+    def recv_msg(self, source, msg, attachment=None):
         """place a message from a working into the chat."""
-        self.messages.append(ChatMessage(target, 'Player', message, attachment))
+        self.messages.append(ChatMessage(source, 'Player', msg, attachment))
         # Update worker
         # Do clue work
         # Do map work
         # update chat window
+        print('Ding!')
+        self.render_messages()
 
     def render_chat_input(self):
         pass
