@@ -21,7 +21,6 @@ class MysteryGangWindow(arcade.Window):
         # self.end_view = EndView()
 
         self.show_view(self.intro_view)
-        self.start_game()
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
