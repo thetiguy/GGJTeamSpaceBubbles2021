@@ -68,6 +68,38 @@ class ChatPane(Pane):
         """Draw the chat box elements."""
         super().on_draw()
         self.send_box.on_draw()
+        msg_top = self.top - self.border_width * 2
+        text_color = arcade.color.BLACK
+        for cm in self.messages:
+            # calc stuff
+            if cm.sender == 'Player':
+                left = self.left + 100
+                color = arcade.color.GRAY
+            else:
+                left = self.left + self.border_width + 30
+                color = arcade.color.WHITE
+            right = self.right - self.border_width
+
+            height = 40  # gonna need to resize long ones later
+            bottom = msg_top - height
+
+            # draw rect
+            arcade.draw_lrtb_rectangle_filled(
+                left, right, msg_top, bottom, color)
+
+            # draw icon (if worker)
+            if cm.sender != 'Player':
+                arcade.draw_circle_filled(left - 15, msg_top - 15, 15,
+                                          arcade.color.BLUE)
+
+            # draw words
+            arcade.draw_text(cm.text,
+                             left + 4,
+                             bottom + 4,
+                             text_color, font_size=16, font_name=FONTS,
+                             anchor_x="left", anchor_y="bottom")
+
+            msg_top = bottom - 10  # increment for next msg
 
 
 class ChatBox(Pane):
@@ -105,7 +137,7 @@ class ChatBox(Pane):
         arcade.draw_text(text,
                          self.left + self.border_width,
                          self.bottom + self.border_width,
-                         text_color, font_size=20, font_name=FONTS,
+                         text_color, font_size=18, font_name=FONTS,
                          anchor_x="left", anchor_y="bottom")
 
 
