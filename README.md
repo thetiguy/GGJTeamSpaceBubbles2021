@@ -4,9 +4,8 @@ Lost and Found
 ## Name Suggestions
 Mystery Gang
 
-## THIS WILL need to be moved to contrib or something
+## Further Reading
 
-```
-pip install -r requirements.txt
-python MysteryGang.py
-```
+- [Installation Procedure][install]
+
+[install]: INSTALL.md
