@@ -18,7 +18,7 @@
 ## Linux
 
 -  Install dependancies for pyglet and arcade
-  - sudo dnf install python3-devel ...[others]
+  - sudo dnf install libtiff-devel libjpeg-devel openjpeg2-devel zlib-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel harfbuzz-devel fribidi-devel libraqm-devel libxcb-devel python3-devel python-devel freeglut-devel
 
 -  pip install requirements.txt
 -  pip uninstall pillow
