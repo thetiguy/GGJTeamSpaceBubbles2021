@@ -1,5 +1,6 @@
 from arcade.gui import UIFlatButton
 
+from ..constants import FONTS
 from . import Pane
 
 CLUE_HEIGHT = 25
@@ -27,6 +28,7 @@ class CluePane(Pane):
             button = ClueButton(
                 clue, self.center_x, self.center_y - CLUE_HEIGHT * i,
                 self.width, CLUE_HEIGHT, 'left')
+            button.set_style_attrs(font=FONTS)
             ui_manager.add_ui_element(button)
 
     def resize(self, left, right, top, bottom):
