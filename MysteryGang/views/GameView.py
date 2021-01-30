@@ -18,6 +18,7 @@ CLUES = [
     'tenth_clue.png'
 ]
 
+
 class GameView(arcade.View):
     """Main window for test game."""
 

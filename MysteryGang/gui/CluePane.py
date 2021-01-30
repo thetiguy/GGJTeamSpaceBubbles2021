@@ -4,6 +4,7 @@ from . import Pane
 
 CLUE_HEIGHT = 25
 
+
 class CluePane(Pane):
     """A pane that display an image."""
 
