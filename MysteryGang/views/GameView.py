@@ -2,7 +2,8 @@ from datetime import datetime
 
 import arcade
 
-from MysteryGang.gui import Pane
+from MysteryGang.gui import MapPane, Pane
+
 
 class GameView(arcade.View):
     """Main window for test game."""
@@ -20,7 +21,7 @@ class GameView(arcade.View):
         # Create your sprites and sprite lists here
         width, height = self.window.get_size()
         self.clue_pane = Pane(1, width / 3, height - 1, height / 2)
-        self.map_pane = Pane(1, width / 3, height / 2, 1)
+        self.map_pane = MapPane(1, width / 3, height / 2, 1)
         self.admin_pane = Pane(width / 3, width - 1, height - 1, 1)
         self.panes = [self.clue_pane, self.map_pane, self.admin_pane]
 
