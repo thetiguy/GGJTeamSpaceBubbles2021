@@ -40,7 +40,7 @@ class GameView(arcade.View):
         # Create your sprites and sprite lists here
         width, height = self.window.get_size()
         self.media_pane = MediaPane(
-            1, width / 3, height - 1, height / 2, 'map.png')
+            1, width / 3, height - 1, height / 2, 1.0, 'map.png')
         self.clue_pane = CluePane(
             1, width / 3, height / 2, 1, self.ui_manager, self.media_pane)
         self.clue_pane.add_clue(*CLUES)
@@ -92,6 +92,11 @@ class GameView(arcade.View):
         elif key in [arcade.key.ENTER, arcade.key.NUM_ENTER]:
             key_val = 'Enter'
             self.chat_pane.send_msg_buffer()
+        elif key == arcade.key.ESCAPE:
+            pause = self.window.pause_view
+            # hide ui elements, call register_handlers to reverse
+            self.ui_manager.unregister_handlers()
+            self.window.show_view(pause)
         else:
             key_val = 'not mapped yet'
 
