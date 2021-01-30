@@ -8,7 +8,7 @@ from MysteryGang.gui import CluePane, MediaPane, Pane
 # A temporary hardcoding of clues
 CLUES = [
     'map.png',
-    'ThankYouButWhy.mp3',
+    'ThankYouButWhy.wav',
     'BrianDelight112.png',
     'first_clue.mp3',
     'second_clue.mp4',

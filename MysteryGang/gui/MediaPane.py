@@ -15,7 +15,7 @@ class MediaPane(Pane):
     def display(self, asset):
         path = ASSET_PREFIX.format(asset)
         ext = asset[-3:]
-        if ext == 'mp3':
+        if ext == 'wav':
             arcade.Sound(path).play()
         elif ext == 'png':
             self.media = arcade.load_texture(path)

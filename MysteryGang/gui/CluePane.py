@@ -35,13 +35,13 @@ class CluePane(Pane):
         """
         i = len(self.buttons)
         for clue in clues:
-            i += 1
             button = ClueButton(
                 clue, self.center_x, self.center_y - CLUE_HEIGHT * i,
                 self.width, CLUE_HEIGHT, 'left', self.media_pane)
             button.set_style_attrs(font=FONTS, font_size=12)
             self.ui_manager.add_ui_element(button)
             self.buttons.append(button)
+            i += 1
 
     def resize(self, left, right, top, bottom):
         super().resize(left, right, top, bottom)
