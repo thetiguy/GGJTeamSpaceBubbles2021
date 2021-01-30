@@ -10,7 +10,7 @@ class MapPane(Pane):
         super().__init__(left, right, top, bottom)
 
         # Load the image for the map
-        self.map = arcade.load_texture('assets/Art/maps/map.png')
+        self.map = arcade.load_texture('assets/art/maps/map.png')
 
     def on_draw(self):
         super().on_draw()
