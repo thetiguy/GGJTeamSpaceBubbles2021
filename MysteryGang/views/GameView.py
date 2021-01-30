@@ -35,14 +35,15 @@ class GameView(arcade.View):
     def on_show(self):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.color.CYAN)
-        arcade.Sound(MUSIC_PREFIX.format('broken_loop_3.ogg')).play(loop=True)
+        self.media_player = arcade.Sound(
+            MUSIC_PREFIX.format('broken_loop_3.ogg')).play(loop=True)
 
     def setup(self):
         """Set up the game variables. Call to re-start the game."""
         # Create your sprites and sprite lists here
         width, height = self.window.get_size()
         self.media_pane = MediaPane(
-            1, width / 3, height - 1, height / 2, 1.0, 'map.png')
+            1, width / 3, height - 1, height / 2, 'map.png')
         self.clue_pane = CluePane(
             1, width / 3, height / 2, 1, self.ui_manager, self.media_pane)
         self.clue_pane.add_clue(*CLUES)
