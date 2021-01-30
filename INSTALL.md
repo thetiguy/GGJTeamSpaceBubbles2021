@@ -13,7 +13,7 @@
 -   Open PowerShell, navigate to the directory containing this file and run:
     `pip install -r requirements.txt`
 
--   In the same PowerShell, run `python MysteryGang/MysteryGang.py`
+-   In the same PowerShell, run `python run.py`
 
 [build-tools]: https://visualstudio.microsoft.com/downloads/
 [python]: https://www.python.org/

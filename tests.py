@@ -1,2 +1,2 @@
-#Really dumb test
+# Really dumb test
 assert True
