@@ -17,8 +17,8 @@ class MysteryGangWindow(arcade.Window):
         # init views
         self.intro_view = OpeningView()
         self.game_view = GameView()
-        #self.pause_view = PauseView()
-        #self.end_view = EndView()
+        # self.pause_view = PauseView()
+        # self.end_view = EndView()
 
         self.show_view(self.intro_view)
 
@@ -33,12 +33,11 @@ class MysteryGangWindow(arcade.Window):
             # so there is a one-to-one mapping.
             width, height = self.get_size()
             self.set_viewport(0, width, 0, height)
-
-        elif is_ctrl and key == arcade.key.W: # exit
+        elif is_ctrl and key == arcade.key.W:  # exit
             self.close()
-        elif is_ctrl and key == arcade.key.P: # print every keypress
+        elif is_ctrl and key == arcade.key.P:  # print every keypress
             self.dump_keys = not self.dump_keys
-        elif is_ctrl and key == arcade.key.T: # force worker message
+        elif is_ctrl and key == arcade.key.T:  # force worker message
             if self.current_view == self.game_view:
                 msg = 'Hello, I found a thing'
                 self.game_view.chat_pane.recv_msg('Worker', msg)
