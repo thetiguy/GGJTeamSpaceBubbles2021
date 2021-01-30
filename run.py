@@ -10,9 +10,10 @@ SCREEN_TITLE = "wooooo"
 
 def main():
     """Main method"""
-    window = MysteryGangWindow(
+    MysteryGangWindow(
         SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, resizable=True)
     arcade.run()
+
 
 if __name__ == "__main__":
     main()
