@@ -38,7 +38,7 @@ class CluePane(Pane):
             button = ClueButton(
                 clue, self.center_x, self.center_y - CLUE_HEIGHT * i,
                 self.width, CLUE_HEIGHT, 'left', self.media_pane)
-            button.set_style_attrs(font=FONTS, font_size=12)
+            button.set_style_attrs(font_name=FONTS, font_size=12)
             self.ui_manager.add_ui_element(button)
             self.buttons.append(button)
             i += 1
