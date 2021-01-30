@@ -1,5 +1,7 @@
 from datetime import datetime
 
+import arcade
+
 from . import Pane
 
 
@@ -10,6 +12,7 @@ class ChatPane(Pane):
     messages = []
 
     def __init__(self, left, right, top, bottom, ui_manager):
+        """Set up the Chat section of the game screen."""
         super().__init__(left, right, top, bottom)
 
     def send_key(self, key):
@@ -53,6 +56,21 @@ class ChatPane(Pane):
         for m in self.messages:
             print(f'{m.chat_string()}')
         print('-----------------------')
+
+    def on_draw(self):
+        """Draw the chat box elements."""
+        border_width = 20
+        buff = border_width / 2
+
+        # Draw the border of the pane
+        arcade.draw_lrtb_rectangle_outline(
+            self.left, self.right, self.top, self.bottom, arcade.color.BLACK,
+            border_width)
+
+        arcade.draw_lrtb_rectangle_filled(
+            self.left + buff, self.right - buff,
+            self.top - buff, self.bottom + buff,
+            arcade.color.WHITE)
 
 
 class ChatBox(Pane):
