@@ -1,7 +1,7 @@
 import arcade
 
 from . import Pane
-from ..constants import ASSET_PREFIX
+from ..constants import CLUE_PREFIX
 
 
 class MediaPane(Pane):
@@ -14,7 +14,7 @@ class MediaPane(Pane):
         self.volume = volume
 
     def display(self, asset):
-        path = ASSET_PREFIX.format(asset)
+        path = CLUE_PREFIX.format(asset)
         ext = asset[-3:]
         if ext == 'wav':
             arcade.Sound(path).play(self.volume)

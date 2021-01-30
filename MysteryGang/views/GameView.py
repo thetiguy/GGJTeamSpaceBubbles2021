@@ -4,6 +4,7 @@ import arcade
 from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane
+from ..constants import MUSIC_PREFIX
 
 # A temporary hardcoding of clues
 CLUES = [
@@ -34,6 +35,7 @@ class GameView(arcade.View):
     def on_show(self):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.color.CYAN)
+        arcade.Sound(MUSIC_PREFIX.format('broken_loop_3.ogg')).play(loop=True)
 
     def setup(self):
         """Set up the game variables. Call to re-start the game."""
