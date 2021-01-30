@@ -3,10 +3,13 @@ from datetime import datetime
 import arcade
 from arcade.gui import UIManager
 
-from MysteryGang.gui import CluePane, MapPane, Pane
+from MysteryGang.gui import CluePane, MediaPane, Pane
 
 # A temporary hardcoding of clues
 CLUES = [
+    'map.png',
+    'ThankYouButWhy.mp3',
+    'BrianDelight112.png',
     'first_clue.mp3',
     'second_clue.mp4',
     'third_clue.png',
@@ -36,11 +39,12 @@ class GameView(arcade.View):
         """Set up the game variables. Call to re-start the game."""
         # Create your sprites and sprite lists here
         width, height = self.window.get_size()
+        self.media_pane = MediaPane(
+            1, width / 3, height - 1, height / 2, 'map.png')
         self.clue_pane = CluePane(
-            1, width / 3, height - 1, height / 2, self.ui_manager, CLUES)
-        self.map_pane = MapPane(1, width / 3, height / 2, 1)
+            1, width / 3, height / 2, 1, self.ui_manager, self.media_pane, CLUES)
         self.admin_pane = Pane(width / 3, width - 1, height - 1, 1)
-        self.panes = [self.clue_pane, self.map_pane, self.admin_pane]
+        self.panes = [self.clue_pane, self.media_pane, self.admin_pane]
 
     def on_draw(self):
         """Render the screen."""
@@ -53,8 +57,8 @@ class GameView(arcade.View):
     def on_resize(self, width, height):
         """This method is automatically called when the window is resized."""
         self.window.on_resize(width, height)
-        self.clue_pane.resize(1, width / 3, height - 1, height / 2)
-        self.map_pane.resize(1, width / 3, height / 2, 1)
+        self.media_pane.resize(1, width / 3, height - 1, height / 2)
+        self.clue_pane.resize(1, width / 3, height / 2, 1)
         self.admin_pane.resize(width / 3, width - 1, height - 1, 1)
 
     def on_update(self, delta_time):
