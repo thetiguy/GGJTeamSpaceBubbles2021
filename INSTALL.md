@@ -15,5 +15,14 @@
 
 -   In the same PowerShell, run `python run.py`
 
+## Linux
+
+-  Install dependancies for pyglet and arcade
+  - sudo dnf install python3-devel ...[others]
+
+-  pip install requirements.txt
+-  pip uninstall pillow
+-  pip install git+https://github.com/nulano/Pillow.git@fribidi-link
+
 [build-tools]: https://visualstudio.microsoft.com/downloads/
 [python]: https://www.python.org/
