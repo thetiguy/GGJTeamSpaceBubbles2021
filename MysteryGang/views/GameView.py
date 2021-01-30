@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import arcade
+from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MapPane, Pane
 
@@ -25,6 +26,7 @@ class GameView(arcade.View):
     def __init__(self):
         super().__init__()
         self.panes = []
+        self.ui_manager = UIManager()
 
     def on_show(self):
         """ This is run once when we switch to this view """
@@ -34,7 +36,8 @@ class GameView(arcade.View):
         """Set up the game variables. Call to re-start the game."""
         # Create your sprites and sprite lists here
         width, height = self.window.get_size()
-        self.clue_pane = CluePane(1, width / 3, height - 1, height / 2, CLUES)
+        self.clue_pane = CluePane(
+            1, width / 3, height - 1, height / 2, self.ui_manager, CLUES)
         self.map_pane = MapPane(1, width / 3, height / 2, 1)
         self.admin_pane = Pane(width / 3, width - 1, height - 1, 1)
         self.panes = [self.clue_pane, self.map_pane, self.admin_pane]
