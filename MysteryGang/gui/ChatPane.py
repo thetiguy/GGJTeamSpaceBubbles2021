@@ -2,6 +2,7 @@ from datetime import datetime
 
 from . import Pane
 
+
 class ChatPane(Pane):
     """A panel that will look and act sort of like hangouts."""
 
@@ -53,9 +54,11 @@ class ChatPane(Pane):
             print(f'{m.chat_string()}')
         print('-----------------------')
 
+
 class ChatBox(Pane):
     """User types messages here"""
     pass
+
 
 class ChatMessage:
     """Representation of a message in a chat."""
@@ -74,10 +77,8 @@ class ChatMessage:
         self.receiver = target
 
     def chat_string(self):
-        if self.attachemnt == None:
+        if self.attachemnt is None:
             extra = ''
         else:
             extra = '&'
-        return f'{self.time} {self.sender}->{self.receiver}: {self.text} {extra}'
-
-
+        return f'{self.time} {self.sender}->{self.receiver}: {self.text} {extra}'  # NOQA
