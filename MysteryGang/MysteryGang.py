@@ -85,10 +85,16 @@ class OpeningView(arcade.View):
     def on_draw(self):
         """ Draw this view """
         arcade.start_render()
+
         arcade.draw_text("Welcome", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
-                         arcade.color.WHITE, font_size=50, anchor_x="center")
+                         arcade.color.WHITE, font_size=50,
+                         font_name=['Arial', 'DejaVuSans'],
+                         anchor_x="center")
+
         arcade.draw_text("Click to go", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2-75,
-                         arcade.color.WHITE, font_size=20, anchor_x="center")
+                         arcade.color.WHITE, font_size=50,
+                         font_name=['Arial', 'DejaVuSans'],
+                         anchor_x="center")
 
 
 class EndingView(arcade.View):
