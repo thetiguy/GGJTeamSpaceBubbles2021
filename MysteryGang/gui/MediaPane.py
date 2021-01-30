@@ -3,6 +3,7 @@ import arcade
 from . import Pane
 from ..constants import ASSET_PREFIX
 
+
 class MediaPane(Pane):
     """A pane that display an image."""
 

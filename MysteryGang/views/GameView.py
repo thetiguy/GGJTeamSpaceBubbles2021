@@ -42,7 +42,8 @@ class GameView(arcade.View):
         self.media_pane = MediaPane(
             1, width / 3, height - 1, height / 2, 'map.png')
         self.clue_pane = CluePane(
-            1, width / 3, height / 2, 1, self.ui_manager, self.media_pane, CLUES)
+            1, width / 3, height / 2, 1, self.ui_manager, self.media_pane)
+        self.clue_pane.add_clue(*CLUES)
         self.admin_pane = Pane(width / 3, width - 1, height - 1, 1)
         self.panes = [self.clue_pane, self.media_pane, self.admin_pane]
 

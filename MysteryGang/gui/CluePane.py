@@ -20,17 +20,27 @@ class ClueButton(UIFlatButton):
 class CluePane(Pane):
     """A pane that display an image."""
 
-    def __init__(self, left, right, top, bottom, ui_manager, media_pane, clues):
-        self.buttons = []
+    def __init__(self, left, right, top, bottom, ui_manager, media_pane):
+        self.buttons = []  # Super calls resize which uses this
         super().__init__(left, right, top, bottom)
+        self.media_pane = media_pane
+        self.ui_manager = ui_manager
 
-        # Create the clue buttons
-        for i, clue in enumerate(clues):
+    def add_clue(self, *clues):
+        """Add a clue to the pane.
+
+        You may pass multiple arguments and each will be added as a separate
+        clue. The clue should be a string, which is the filename of the media
+        asset to play, e.g., sound1.mp3.
+        """
+        i = len(self.buttons)
+        for clue in clues:
+            i += 1
             button = ClueButton(
                 clue, self.center_x, self.center_y - CLUE_HEIGHT * i,
-                self.width, CLUE_HEIGHT, 'left', media_pane)
+                self.width, CLUE_HEIGHT, 'left', self.media_pane)
             button.set_style_attrs(font=FONTS, font_size=12)
-            ui_manager.add_ui_element(button)
+            self.ui_manager.add_ui_element(button)
             self.buttons.append(button)
 
     def resize(self, left, right, top, bottom):
