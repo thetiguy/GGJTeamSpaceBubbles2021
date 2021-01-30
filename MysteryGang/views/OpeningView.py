@@ -1,7 +1,7 @@
 import arcade
 
 from ..constants import FONTS
-from . import GameView
+
 
 class OpeningView(arcade.View):
     def __init__(self):
