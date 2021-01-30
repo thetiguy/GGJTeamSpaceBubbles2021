@@ -1,4 +1,3 @@
-import arcade
 from arcade.gui import UIFlatButton
 
 from . import Pane
@@ -26,7 +25,7 @@ class CluePane(Pane):
             if i == self.max_clues:
                 break
             button = ClueButton(
-                clue, self.center_x , self.center_y - CLUE_HEIGHT * i,
+                clue, self.center_x, self.center_y - CLUE_HEIGHT * i,
                 self.width, CLUE_HEIGHT, 'left')
             ui_manager.add_ui_element(button)
 
