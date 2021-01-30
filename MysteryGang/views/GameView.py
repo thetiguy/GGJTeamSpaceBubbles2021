@@ -45,8 +45,8 @@ class GameView(arcade.View):
             1, width / 3, height / 2, 1, self.ui_manager, self.media_pane)
         self.clue_pane.add_clue(*CLUES)
 
-        self.chat_pane = ChatPane(width / 3, width - 1, height - 1, 1,
-                self.ui_manager)
+        self.chat_pane = ChatPane(
+            width / 3, width - 1, height - 1, 1, self.ui_manager)
         self.panes = [self.clue_pane, self.media_pane, self.chat_pane]
 
     def on_draw(self):
