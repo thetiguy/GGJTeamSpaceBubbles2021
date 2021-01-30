@@ -25,10 +25,10 @@ class OpeningView(arcade.View):
 
         arcade.draw_text("Welcome", width / 2, height / 2,
                          arcade.color.WHITE, font_size=50,
-                         font_name=['Arial', 'DejaVuSans'],
+                         font_name=['Arial', 'Cantarell-Regular'],
                          anchor_x="center")
 
         arcade.draw_text("Click to go", width / 2, height / 2-75,
                          arcade.color.WHITE, font_size=50,
-                         font_name=['Arial', 'DejaVuSans'],
+                         font_name=['Arial', 'Cantarell-Regular'],
                          anchor_x="center")
