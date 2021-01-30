@@ -3,7 +3,7 @@ from datetime import datetime
 import arcade
 from arcade.gui import UIManager
 
-from MysteryGang.gui import CluePane, MediaPane, Pane
+from MysteryGang.gui import CluePane, MediaPane, ChatPane
 
 # A temporary hardcoding of clues
 CLUES = [
@@ -24,7 +24,7 @@ CLUES = [
 
 
 class GameView(arcade.View):
-    """Main window for test game."""
+    """Main view for test game."""
 
     def __init__(self):
         super().__init__()
@@ -44,8 +44,10 @@ class GameView(arcade.View):
         self.clue_pane = CluePane(
             1, width / 3, height / 2, 1, self.ui_manager, self.media_pane)
         self.clue_pane.add_clue(*CLUES)
-        self.admin_pane = Pane(width / 3, width - 1, height - 1, 1)
-        self.panes = [self.clue_pane, self.media_pane, self.admin_pane]
+
+        self.chat_pane = ChatPane(width / 3, width - 1, height - 1, 1,
+                self.ui_manager)
+        self.panes = [self.clue_pane, self.media_pane, self.chat_pane]
 
     def on_draw(self):
         """Render the screen."""
@@ -60,7 +62,7 @@ class GameView(arcade.View):
         self.window.on_resize(width, height)
         self.media_pane.resize(1, width / 3, height - 1, height / 2)
         self.clue_pane.resize(1, width / 3, height / 2, 1)
-        self.admin_pane.resize(width / 3, width - 1, height - 1, 1)
+        self.chat_pane.resize(width / 3, width - 1, height - 1, 1)
 
     def on_update(self, delta_time):
         """
@@ -76,7 +78,25 @@ class GameView(arcade.View):
         For a full list of keys, see:
         http://arcade.academy/arcade.key.html
         """
-        pass
+        if self.window.dump_keys:
+            print(f'key: {key}, modifiers: [{key_modifiers}]')
+
+        is_cap = (key_modifiers & arcade.key.MOD_SHIFT or
+                  key_modifiers & arcade.key.MOD_CAPSLOCK)
+        is_ctrl = key_modifiers & arcade.key.MOD_CTRL
+        if key < 126 and not is_ctrl:  # ASCII press, ignore ESC
+            key_val = chr(key)
+            if is_cap:
+                key_val = key_val.upper()
+            self.chat_pane.send_key(key_val)
+        elif key in [arcade.key.ENTER, arcade.key.NUM_ENTER]:
+            key_val = 'Enter'
+            self.chat_pane.send_msg_buffer()
+        else:
+            key_val = 'not mapped yet'
+
+        if self.window.dump_keys:
+            print(f"'{key_val}'")
 
     def on_key_release(self, key, key_modifiers):
         """Called whenever the user lets off a previously pressed key."""
