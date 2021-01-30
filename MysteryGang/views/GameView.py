@@ -2,8 +2,21 @@ from datetime import datetime
 
 import arcade
 
-from MysteryGang.gui import MapPane, Pane
+from MysteryGang.gui import CluePane, MapPane, Pane
 
+# A temporary hardcoding of clues
+CLUES = [
+    'first_clue.mp3',
+    'second_clue.mp4',
+    'third_clue.png',
+    'fourth_clue.png',
+    'fifth_clue.mp4',
+    'sixth_clue.mp3',
+    'seventh_clue.mp3',
+    'eithth_clue.png',
+    'ninth_clue.png',
+    'tenth_clue.png'
+]
 
 class GameView(arcade.View):
     """Main window for test game."""
@@ -20,7 +33,7 @@ class GameView(arcade.View):
         """Set up the game variables. Call to re-start the game."""
         # Create your sprites and sprite lists here
         width, height = self.window.get_size()
-        self.clue_pane = Pane(1, width / 3, height - 1, height / 2)
+        self.clue_pane = CluePane(1, width / 3, height - 1, height / 2, CLUES)
         self.map_pane = MapPane(1, width / 3, height / 2, 1)
         self.admin_pane = Pane(width / 3, width - 1, height - 1, 1)
         self.panes = [self.clue_pane, self.map_pane, self.admin_pane]
