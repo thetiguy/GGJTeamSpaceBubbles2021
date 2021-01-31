@@ -1,16 +1,18 @@
 from datetime import datetime
 import json
 from random import random, shuffle
+from types import SimpleNamespace
 
 import arcade
 from arcade.gui import UIManager
+from pyglet import clock
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
-from ..constants import (ASSET_PREFIX, MUSIC_PREFIX, PROFILE_PREFIX, SPEED,
-                         BORDER_WIDTH, FONTS)
+from ..constants import (ASSET_PREFIX, BORDER_WIDTH, FONTS, GAME_LENGTH,
+                         MUSIC_PREFIX, PROFILE_PREFIX, SPEED, SPRITE_SIZE)
 from ..resources import Location, Investigator
+from ..sprites import LocationSprite, WorkerSprite
 
-SPRITE_SIZE = 60
 
 # A temporary hardcoding of clues
 CLUES = [
@@ -18,31 +20,8 @@ CLUES = [
 ]
 
 
-class LocationSprite(arcade.SpriteSolidColor):
-    """investiator sprite object"""
-
-    def __init__(self, location, w, h, color=None):
-        self.location = location
-        if color is None:
-            color = arcade.color.GRAY
-        super().__init__(w, h, color)
-
-
-class WorkerSprite(arcade.Sprite):
-    """investiator sprite object"""
-
-    locked = False
-
-    def __init__(self, worker, scale, center_x, center_y):
-        self.worker = worker
-        self.start_x = center_x
-        self.start_y = center_y
-        path = PROFILE_PREFIX.format('{0}.png'.format(worker.name))
-        super().__init__(path, scale, center_x=center_x, center_y=center_y)
-
-
 class GameView(arcade.View):
-    """Main view for test game."""
+    """Main view for the game."""
 
     def __init__(self):
         super().__init__()
@@ -52,18 +31,18 @@ class GameView(arcade.View):
         self.workerSprites = arcade.SpriteList()
         self.investigators = []
         self.ui_manager = UIManager()
-        start_music = '02_game_start_seamless-final.ogg'
-        self.media_player = arcade.Sound(
-            MUSIC_PREFIX.format(start_music)).play(loop=True)
-        self.media_player.volume = 0.75
 
         self.heldLocations = []
         self.heldWorker = None
         self.location_labels = []
+        self.victim = SimpleNamespace(name='Ren', color=(255, 0, 0))
+        self.countdown = None
 
     def on_show(self):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.color.CYAN)
+        self.window.switch_music('start.ogg')
+        self.window.media_player.volume = 0.75
 
     def setup(self):
         """Set up the game variables. Call to re-start the game."""
@@ -101,6 +80,8 @@ class GameView(arcade.View):
         for name, investigator in data['investigators'].items():
             self.investigators.append(Investigator(
                 self.chat_pane, self.clue_pane, name, **investigator))
+        # Load starting messages
+        self.starting_messages = data['starting_messages']
 
         spacing = (height - BORDER_WIDTH * 2) / 6
         for pos, loc in enumerate(self.locations):
@@ -115,9 +96,21 @@ class GameView(arcade.View):
         for i, investigator in enumerate(self.investigators):
             ws = WorkerSprite(
                 investigator, 0.025, center_x=2 * width / 5,
-                center_y = height - 100 * (i + 1))
+                center_y=height - 100 * (i + 1))
             self.workerSprites.append(ws)
             investigator.worker_sprite = ws
+
+        clock.schedule_once(self.send_starting_message, random() * 5 + 1, 0)
+
+    def send_starting_message(self, delay, i):
+        if i == len(self.starting_messages) - 1:  # Last message
+            self.chat_pane.send_msg(
+                self.victim.name, self.starting_messages[i])
+            self.countdown = GAME_LENGTH
+        else:
+            self.chat_pane.recv_msg(self.victim, self.starting_messages[i])
+            clock.schedule_once(
+                self.send_starting_message, random() * 5 + 1, i + 1)
 
     def on_draw(self):
         """Render the screen."""
@@ -127,9 +120,9 @@ class GameView(arcade.View):
         for pane in self.panes:
             pane.on_draw()
         self.locationSprites.draw()
-        self.workerSprites.draw()
         bar_bg = arcade.color.GRAY
         bar_fill = arcade.color.DARK_BLUE
+        label_color = arcade.color.BLACK
         for x, y, loc in self.location_labels:
             label_x = x + SPRITE_SIZE / 2 + 8
             bar_x = x - SPRITE_SIZE / 2
@@ -139,20 +132,19 @@ class GameView(arcade.View):
             if loc.countdown:
                 percent_complete = 1 - (loc.countdown / loc.delay)
                 arcade.draw_lrtb_rectangle_filled(
-                    bar_x, bar_x + 200 * percent_complete, y - 35, y - 45, bar_fill)
+                    bar_x, bar_x + 200 * percent_complete, y - 35, y - 45,
+                    bar_fill)
 
             arcade.draw_text(
-                loc.name, label_x, y + 10, arcade.color.BLACK,
-                font_size = 15, font_name = FONTS, anchor_x = 'left',
-                anchor_y = 'bottom')
+                loc.name, label_x, y + 10, label_color, font_size=15,
+                font_name=FONTS, anchor_x='left', anchor_y='bottom')
             arcade.draw_text(
-                loc.element1, label_x, y - 10, arcade.color.BLACK,
-                font_size = 15, font_name = FONTS, anchor_x = 'left',
-                anchor_y = 'bottom')
+                loc.element1, label_x, y - 10, label_color, font_size=15,
+                font_name=FONTS, anchor_x='left', anchor_y='bottom')
             arcade.draw_text(
-                loc.element2, label_x, y - 30, arcade.color.BLACK,
-                font_size = 15, font_name = FONTS, anchor_x = 'left',
-                anchor_y = 'bottom')
+                loc.element2, label_x, y - 30, label_color, font_size=15,
+                font_name=FONTS, anchor_x='left', anchor_y='bottom')
+        self.workerSprites.draw()
 
     def on_resize(self, width, height):
         """This method is automatically called when the window is resized."""
@@ -171,19 +163,24 @@ class GameView(arcade.View):
             ls.center_y = y
             self.location_labels.append((x, y, ls.location))
 
-
     def on_update(self, delta_time):
         """
         All the logic to move, and the game logic goes here.
         Normally, you'll call update() on the sprite lists that
         need it.
         """
+        # Update the global countdown
+        if self.countdown:
+            self.countdown -= delta_time
+
         # Update each investigator's countdown
         for investigator in self.investigators:
             loc_sprite = investigator.location_sprite
-            if (loc_sprite and loc_sprite.location and
+            if (
+                loc_sprite and loc_sprite.location and
                 loc_sprite.location.countdown and
-                loc_sprite.location.countdown > 0):
+                loc_sprite.location.countdown > 0
+            ):
                 loc_sprite.location.countdown -= delta_time
 
     def on_key_press(self, key, key_modifiers):
@@ -245,6 +242,7 @@ class GameView(arcade.View):
 
         hit_workers = arcade.get_sprites_at_point((x, y), self.workerSprites)
         if len(hit_workers) == 1 and not hit_workers[0].locked:
+            arcade.Sound(MUSIC_PREFIX.format('sfx_interface_click.ogg')).play()
             self.heldWorker = hit_workers[0]
             self.worker_start_pos_x = self.heldWorker.center_x
             self.worker_start_pos_y = self.heldWorker.center_y

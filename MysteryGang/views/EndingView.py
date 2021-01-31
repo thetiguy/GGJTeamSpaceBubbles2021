@@ -3,7 +3,10 @@ from arcade.gui import UIManager
 
 from ..constants import FONTS, MORTEEVITA
 
+
 class EndingView(arcade.View):
+    """Ending / Credits view for the game. """
+
     def __init__(self, game_view):
         super().__init__()
         self.game_view = game_view
@@ -13,13 +16,13 @@ class EndingView(arcade.View):
         self.setup()
 
         # TODO: Remove before submitting game
-        if MORTEEVITA == False:
-            text = "DEATH!"
-            backcolor = arcade.color.BLACK
-        if MORTEEVITA == True:
+        if MORTEEVITA:
             text = "LIFE!!!"
             backcolor = arcade.color.WHITE
-            
+        else:
+            text = "DEATH!"
+            backcolor = arcade.color.BLACK
+
         arcade.set_background_color(backcolor)
 
     def on_draw(self):
@@ -28,14 +31,14 @@ class EndingView(arcade.View):
         arcade.start_render()
 
         # TODO: Remove before submitting game
-        if MORTEEVITA == False:
-            text = "DEATH!"
-            backcolor = arcade.color.BLACK
-            textcolor = arcade.color.RED
-        if MORTEEVITA == True:
+        if MORTEEVITA:
             text = "LIFE!!!"
             backcolor = arcade.color.WHITE
             textcolor = arcade.color.GREEN
+        else:
+            text = "DEATH!"
+            backcolor = arcade.color.BLACK
+            textcolor = arcade.color.RED
 
         for i in range(0, 4):
             arcade.draw_text(
@@ -43,9 +46,10 @@ class EndingView(arcade.View):
                 font_name=FONTS, font_size=50, anchor_x="center")
 
             arcade.draw_text(
-                "Press spacebar to continue", width / 2-i, height / 2-i, arcade.color.WHITE,
-                font_name=FONTS, font_size=20, anchor_x="center")
-            
+                'Press spacebar to continue', width / 2 - i, height / 2 - i,
+                arcade.color.WHITE, font_name=FONTS, font_size=20,
+                anchor_x='center')
+
         arcade.draw_text(
             text, width / 2, height / 2 + 50, textcolor,
             font_name=FONTS, font_size=50, anchor_x="center")
