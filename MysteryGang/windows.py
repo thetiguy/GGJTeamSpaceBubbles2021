@@ -25,7 +25,7 @@ class MysteryGangWindow(arcade.Window):
         volume = self.media_player.volume if self.media_player else 1
         old = self.media_player
         self.media_player = arcade.Sound(
-            MUSIC_PREFIX.format(filename)).play(volume, loop=True)
+            MUSIC_PREFIX.format(filename)).play(volume=volume, loop=True)
         if old:  # Do this afterwards to minimize a gap in sound
             old.pause()
 

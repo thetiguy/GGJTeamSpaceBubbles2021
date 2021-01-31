@@ -46,13 +46,18 @@ class GameView(arcade.View):
         self.location_labels = []
         self.music_phase = 0
         self.music_phase_length = GAME_LENGTH * SPEED / len(MUSIC_PHASES)
+        self.started = False
         self.victim = SimpleNamespace(name='Ren', color=(255, 0, 0))
 
     def on_show(self):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.color.CYAN)
-        self.next_music_phase()
-        self.window.media_player.volume = 0.75
+        if not self.started:
+            self.next_music_phase()
+            self.window.media_player.volume = 0.75
+            self.started = True
+        else:
+            self.window.switch_music(MUSIC_PHASES[self.music_phase])
 
     def next_music_phase(self, delay=None):
         if self.music_phase < len(MUSIC_PHASES):
@@ -61,7 +66,7 @@ class GameView(arcade.View):
             clock.schedule_once(self.next_music_phase, self.music_phase_length)
 
     def setup(self):
-        """Set up the game variables. Call to re-start the game."""
+        """Set up the game variables."""
         # Create your sprites and sprite lists here
         width, height = self.window.get_size()
 
