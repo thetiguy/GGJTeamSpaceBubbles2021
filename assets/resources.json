@@ -109,21 +109,27 @@
   },
   "investigators": {
     "Josh": {
+        "color": [255, 140, 0],
         "specialty": "office"
     },
     "Charlie": {
+        "color": [0, 255, 255],
         "specialty": "ice"
     },
     "Hassan": {
+        "color": [0, 255, 0],
         "specialty": "forest"
     },
     "Chris": {
+        "color": [0, 0, 255],
         "specialty": "water"
     },
     "Patrick": {
+        "color": [0, 0, 0],
         "specialty": "rock"
     },
     "Brian": {
+        "color": [255, 0, 0],
         "specialty": "urban"
     }
   },

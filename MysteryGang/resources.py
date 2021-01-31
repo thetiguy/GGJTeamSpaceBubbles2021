@@ -28,15 +28,20 @@ class Location:
 
 
 class Investigator:
-    def __init__(self, chat_pane, name, specialty):
+    def __init__(self, chat_pane, clue_pane, name, color, specialty):
         self.chat_pane = chat_pane
+        self.clue_pane = clue_pane
         self.name = name
+        self.color = color
         self.specialty = specialty
 
         self.countdown = None
         self.exhaustion = 1
 
     def traverse(self, location):
+        self.chat_pane.recv_msg(
+            self, 'I am going to the {0}'.format(location.name))
+
         self.location = location
         self.countdown = self.location.delay
 
@@ -60,15 +65,16 @@ class Investigator:
             self.report, self.location.frequency, self.location.delay)
 
     def die(self, delay):
-        self.chat_pane.recv_msg(self.name, self.location.death_message)
+        self.chat_pane.recv_msg(self, self.location.death_message)
 
     def report(self, delay, length):
         length -= delay
         if length < 0:
             self.chat_pane.recv_msg(
-                self.name, self.location.success_message, self.location.clue)
+                self, self.location.success_message, self.location.clue)
+            self.clue_pane.add_clue(self.location.clue)
         else:
             message = self.location.get_message()
             if message:
-                self.chat_pane.recv_msg(self.name, message)
+                self.chat_pane.recv_msg(self, message)
             clock.schedule_once(self.report, self.location.frequency, length)

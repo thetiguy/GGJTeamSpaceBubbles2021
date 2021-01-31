@@ -7,26 +7,15 @@ from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
 from ..constants import (ASSET_PREFIX, MUSIC_PREFIX, PROFILE_PREFIX, SPEED,
-                         CLUE_PREFIX, BORDER_WIDTH)
+                         BORDER_WIDTH)
 from ..resources import Location, Investigator
 
 SPRITE_SIZE = 60
 
 # A temporary hardcoding of clues
 CLUES = [
-    'map.png',
-    'ThankYouButWhy.wav',
     'BrianDelight112.png',
-    'first_clue.mp3',
-    'second_clue.mp4',
-    'third_clue.png',
-    'fourth_clue.png',
-    'fifth_clue.mp4',
-    'sixth_clue.mp3',
-    'seventh_clue.mp3',
-    'eithth_clue.png',
-    'ninth_clue.png',
-    'tenth_clue.png'
+    'ThankYouButWhy.wav'
 ]
 
 
@@ -107,7 +96,7 @@ class GameView(arcade.View):
                 name, delay * SPEED, clue, **location))
         for name, investigator in data['investigators'].items():
             self.investigators.append(Investigator(
-                self.chat_pane, name, **investigator))
+                self.chat_pane, self.clue_pane, name, **investigator))
 
         spacing = (height - BORDER_WIDTH * 2) / 6
         for pos, loc in enumerate(self.locations):
@@ -213,9 +202,8 @@ class GameView(arcade.View):
 
         if self.heldWorker:
             hits = self.heldWorker.collides_with_list(self.locationSprites)
-            print(hits)
             if hits:
-                self.chat_pane.recv_msg('Brian', 'I am going to the location')
+                self.heldWorker.worker.traverse(hits[0].location)
                 self.heldWorker.locked = True
             else:
                 self.heldWorker.center_x = self.worker_start_pos_x

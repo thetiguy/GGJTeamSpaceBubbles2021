@@ -112,7 +112,7 @@ class ChatPane(Pane):
             # draw icon (if worker)
             if cm.sender != 'Player':
                 arcade.draw_circle_filled(left - 15, top - 15, 15,
-                                          arcade.color.BLUE)
+                                          cm.sender.color)
 
             # draw words
             arcade.draw_text(cm.text,
@@ -182,4 +182,4 @@ class ChatMessage:
             extra = ''
         else:
             extra = '&'
-        return f'{self.time} {self.sender}->{self.receiver}: {self.text} {extra}'  # NOQA
+        return f'{self.time} {self.sender.name}->{self.receiver}: {self.text} {extra}'  # NOQA
