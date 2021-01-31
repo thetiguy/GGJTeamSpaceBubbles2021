@@ -7,7 +7,9 @@ from . import Pane
 from ..constants import FONTS, MUSIC_PREFIX
 from ..resources import Investigator
 
-MESSAGE_LINE_HEIGHT = 40
+MESSAGE_LINE_HEIGHT = 32
+MESSAGE_FONT_SIZE = 18
+MSG_GAP = 4
 
 
 class ChatPane(Pane):
@@ -28,8 +30,8 @@ class ChatPane(Pane):
         buff = self.border_width / 2
         send_left = self.left + buff
         send_right = self.right - buff
-        send_bottom = self.bottom
-        send_top = send_bottom + MESSAGE_LINE_HEIGHT
+        send_bottom = self.bottom + buff
+        send_top = send_bottom + MESSAGE_LINE_HEIGHT + 8
         self.send_box = ChatBox(send_left, send_right, send_top, send_bottom)
         inside_height = top - bottom - self.border_width * 2
         msg_slots = int(inside_height / (MESSAGE_LINE_HEIGHT + 4))
@@ -39,11 +41,11 @@ class ChatPane(Pane):
     def resize(self, left, right, top, bottom):
         super().resize(left, right, top, bottom)
         buff = self.border_width / 2
-        send_left = self.left + buff
-        send_right = self.right - buff
-        send_bottom = self.bottom
-        send_top = send_bottom + 40
         if self.send_box is not None:
+            send_left = self.left + buff
+            send_right = self.right - buff
+            send_bottom = self.bottom + buff
+            send_top = send_bottom + MESSAGE_LINE_HEIGHT * self.send_box.lines + 8
             self.send_box.resize(send_left, send_right, send_top, send_bottom)
         inside_height = top - bottom - self.border_width * 2
         msg_slots = int(inside_height / (MESSAGE_LINE_HEIGHT + 4))
@@ -69,11 +71,10 @@ class ChatPane(Pane):
         arcade.Sound(MUSIC_PREFIX.format('sfx_send_message.ogg')).play()
 
     def recv_msg(self, source, msg, attachment=None):
-        """place a message from a working into the chat."""
+        """Place a message from a working into the chat and DING!."""
         self.messages.append(ChatMessage(
             source, self.player_worker, msg, attachment))
         arcade.Sound(MUSIC_PREFIX.format('sfx_text_notification.ogg')).play()
-        print('Ding!')
 
     def on_draw(self):
         """Draw the chat box elements."""
@@ -90,61 +91,59 @@ class ChatPane(Pane):
             calc_offset = max(len(msg_pool) - self.scroll_offset, 15)
             msg_pool = self.messages[:calc_offset]
         for cm in reversed(msg_pool):
-            # calc stuff
-            if cm.sender == self.player_worker:
+            if cm.sender == self.player_worker:  # Message goes to right side
                 left = self.left + 100
                 color = arcade.color.GRAY
-                box_width = 40
+                box_width = 33
             else:
                 left = self.left + self.border_width + 30
                 color = arcade.color.WHITE
-                box_width = 34
+                box_width = 36
 
             right = self.right - self.border_width
             lines = math.ceil(len(cm.text) / box_width)
 
-            height = MESSAGE_LINE_HEIGHT * lines
-            padded_line_height = (MESSAGE_LINE_HEIGHT + 4)
-
-            bottom = start_pos - self.border_width - 5 + n * padded_line_height
-            top = bottom + height
-
             msg_lines = []
-            if lines > 1:  # insert newlines
+            if lines > 1:  # insert newlines for word wrap
                 words = cm.text.split()
                 while len(words) > 0:
                     chunk = ''
-                    while len(chunk) < box_width - 5 and len(words) > 0:
+                    while len(chunk) < box_width - 6 and len(words) > 0:
                         chunk = chunk + ' ' + words.pop(0)
                     msg_lines.append(chunk)
-                text = '\n\n'.join(msg_lines)
+                lines = len(msg_lines)  # update lines estimate with actual
+                text = '\n'.join(msg_lines)
             else:
                 text = cm.text
 
+            height = MESSAGE_LINE_HEIGHT * lines
+            lines_height = n * (MESSAGE_LINE_HEIGHT + MSG_GAP)
+            bottom = start_pos - self.border_width - 5 + lines_height
+            top = bottom + height
+
+            # Stop rendering once window is full
             if top > self.top - self.border_width:
                 break
-            # draw rect
-            arcade.draw_lrtb_rectangle_filled(
-                left, right, top, bottom, color)
+            # draw chat msg rect
+            arcade.draw_lrtb_rectangle_filled(left, right, top, bottom, color)
 
             # draw icon (if worker)
             if cm.sender != self.player_worker:
                 arcade.draw_circle_filled(left - 15, top - 15, 15,
                                           cm.sender.color)
-
-            # draw words
-            arcade.draw_text(text,
-                             left + 4,
-                             bottom + 4,
-                             text_color, font_size=16, font_name=FONTS,
-                             anchor_x="left", anchor_y="bottom")
-            n = n + lines
+            # draw words for message
+            arcade.draw_text(text, left + 4, bottom + 4 * lines, text_color,
+                             font_size=MESSAGE_FONT_SIZE, font_name=FONTS, anchor_x='left',
+                             anchor_y='bottom')
+            n = n + lines  # Increment messages, accounting for multilines
 
 
 class ChatBox(Pane):
     """User types messages here"""
 
     content = []
+    box_width = 36
+    lines = 1
 
     def __init__(self, left, right, top, bottom):
         """Set up the Chat section of the game screen."""
@@ -155,12 +154,28 @@ class ChatBox(Pane):
 
     def send_key(self, key):
         self.content.append(key)
+        self.lines = math.ceil(len(self.content) / self.box_width)
+        if self.lines > 1:
+            self.top = self.bottom + MESSAGE_LINE_HEIGHT * self.lines
 
     def clear(self):
         self.content = []
 
     def get_current_msg(self):
-        return ''.join(self.content)
+        msg = ''.join(self.content)
+        msg_lines = []
+        if self.lines > 1:  # insert newlines for word wrap
+            words = msg.split()
+            while len(words) > 0:
+                chunk = ''
+                while len(chunk) < self.box_width - 5 and len(words) > 0:
+                    chunk = chunk + ' ' + words.pop(0)
+                msg_lines.append(chunk)
+            self.lines = len(msg_lines)  # Updates lines estimate with actual
+            text = '\n'.join(msg_lines)
+        else:
+            text = msg
+        return text
 
     def on_draw(self):
         """Draw the chat box elements."""
@@ -175,9 +190,9 @@ class ChatBox(Pane):
 
         arcade.draw_text(text,
                          self.left + self.border_width,
-                         self.bottom + self.border_width,
-                         text_color, font_size=18, font_name=FONTS,
-                         anchor_x="left", anchor_y="bottom")
+                         self.bottom + self.border_width + 2 * self.lines,
+                         text_color, font_size=MESSAGE_FONT_SIZE,
+                         font_name=FONTS, anchor_x="left", anchor_y="bottom")
 
 
 class ChatMessage:
