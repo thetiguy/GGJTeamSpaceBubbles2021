@@ -7,17 +7,18 @@
       "success_message": "I found something buried in the ice",
       "messages": [
           "Cavediving is hard enough when it's warm",
-          "This is the second message."
+          "Almost slipped but I caught myself",
+          "I'll be honest, the light makes some of this ice really pretty"
       ]
     },
     "frozen lake": {
       "element1": "ice",
       "element2": "water",
-      "death_message": "Ok, that was definitely creaking, I'll just... back up... slowly...",
+      "death_message": "Ok, that was definitely creaking, maybe cracking, I'll just... back up... slowly...",
       "success_message": "This is a success message.",
       "messages": [
           "Did the ice just creak?",
-          "This is the second message."
+          "I hear something skittering on the ice... I hope its just the wind of something"
       ]
     },
     "office building": {
@@ -26,8 +27,9 @@
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
-          "This is the first message.",
-          "This is the second message."
+          "Hope security doesn't find me",
+          "Somebody must have burnt some popcorn, ugh, hate when that happens",
+          "I know its not what I'm looking for, but I found someone's candy drawer... Jackpot"
       ]
     },
     "forest lake": {
@@ -36,7 +38,7 @@
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
-          "This is the first message.",
+          "This is probably nice when its not spooky",
           "This is the second message."
       ]
     },
@@ -46,7 +48,7 @@
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
-          "This is the first message.",
+          "Should've brought a hard hat with me",
           "This is the second message."
       ]
     },
@@ -56,18 +58,18 @@
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
-          "This is the first message.",
+          "It's eerily quiet when it snows like this...", "I think I see something shining in the snow",
           "This is the second message."
       ]
     },
     "cemetary": {
       "element1": "urban",
       "element2": "rock",
-      "death_message": "This is a death message.",
+      "death_message": "Hold on, I think I see someone... I'm going to ask them for help.",
       "success_message": "This is a success message.",
       "messages": [
-          "This is the first message.",
-          "This is the second message."
+          "If I see a ghost, I am running",
+          "You know, in a zombie virus outbreak, a cemetary is actually probably pretty safe."
       ]
     },
     "park": {
@@ -76,18 +78,19 @@
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
-          "This is the first message.",
-          "This is the second message."
+          "I think I heard there were drug dealers in this park at night",
+          "Why do they tell you to stay off the grass in the park. Isn't that kind of the point?"
       ]
     },
     "forest cabin": {
       "element1": "forest",
       "element2": "office",
-      "death_message": "This is a death message.",
+      "death_message": "I found a recorder, some sort of notes from the researcher. I'm going to play it, I'll let you know what it says.",
       "success_message": "This is a success message.",
       "messages": [
-          "This is the first message.",
-          "This is the second message."
+          "Getting some real Evil Dead vibes here",
+          "Why do the crazy researchers always choose the creepiest cabins",
+          "OMG IM GONNA DIE...\nNever mind... It was a raccoon..."
       ]
     },
     "hot spring": {
@@ -96,8 +99,8 @@
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
-          "This is the first message.",
-          "This is the second message."
+          "I didn't know we had one of these in the area",
+          "I've got to come back when they are open. I could use some relaxation after this case."
       ]
     }
   },
