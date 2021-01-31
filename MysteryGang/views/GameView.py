@@ -7,7 +7,7 @@ from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
 from ..constants import (ASSET_PREFIX, MUSIC_PREFIX, PROFILE_PREFIX, SPEED,
-                         CLUE_PREFIX, BORDER_WIDTH)
+                         CLUE_PREFIX, BORDER_WIDTH, FONTS)
 from ..resources import Location, Investigator
 
 SPRITE_SIZE = 60
@@ -67,6 +67,7 @@ class GameView(arcade.View):
 
         self.heldLocations = []
         self.heldWorker = None
+        self.location_labels = []
 
     def on_show(self):
         """ This is run once when we switch to this view """
@@ -112,9 +113,12 @@ class GameView(arcade.View):
         spacing = (height - BORDER_WIDTH * 2) / 6
         for pos, loc in enumerate(self.locations):
             ls = LocationSprite(loc, SPRITE_SIZE, SPRITE_SIZE)
-            ls.center_x = 3 * width / 5
-            ls.center_y = height - spacing * pos - SPRITE_SIZE / 2 - BORDER_WIDTH * 2
+            x = width * 0.51
+            y = height - spacing * pos - SPRITE_SIZE / 2 - BORDER_WIDTH * 2
+            ls.center_x = x
+            ls.center_y = y
             self.locationSprites.append(ls)
+            self.location_labels.append((x, y, loc))
 
         for i, investigator in enumerate(self.investigators):
             ws = WorkerSprite(investigator, 0.025)
@@ -131,6 +135,20 @@ class GameView(arcade.View):
             pane.on_draw()
         self.locationSprites.draw()
         self.workerSprites.draw()
+        for x, y, loc in self.location_labels:
+            label_x = x + SPRITE_SIZE / 2 + 8
+            arcade.draw_text(
+                loc.name, label_x, y + 10, arcade.color.BLACK,
+                font_size = 15, font_name = FONTS, anchor_x = 'left',
+                anchor_y = 'bottom')
+            arcade.draw_text(
+                loc.element1, label_x, y - 10, arcade.color.BLACK,
+                font_size = 15, font_name = FONTS, anchor_x = 'left',
+                anchor_y = 'bottom')
+            arcade.draw_text(
+                loc.element2, label_x, y - 30, arcade.color.BLACK,
+                font_size = 15, font_name = FONTS, anchor_x = 'left',
+                anchor_y = 'bottom')
 
     def on_resize(self, width, height):
         """This method is automatically called when the window is resized."""
