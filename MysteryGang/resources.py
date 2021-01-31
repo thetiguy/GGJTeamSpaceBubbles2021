@@ -37,13 +37,17 @@ class Investigator:
 
         self.countdown = None
         self.exhaustion = 1
+        self.location_sprite = None
+        self.worker_sprite = None
 
-    def traverse(self, location):
-        self.chat_pane.recv_msg(
-            self, 'I am going to the {0}'.format(location.name))
-
+    def traverse(self, location_sprite):
+        self.location_sprite = location_sprite
+        location = location_sprite.location
         self.location = location
         self.countdown = self.location.delay
+
+        self.chat_pane.recv_msg(
+            self, 'I am going to the {0}'.format(location.name))
 
         # No, Mr. Bond, I expect you to die!
         rand = random()
@@ -73,6 +77,8 @@ class Investigator:
             self.chat_pane.recv_msg(
                 self, self.location.success_message, self.location.clue)
             self.clue_pane.add_clue(self.location.clue)
+            self.worker_sprite.center_x = self.worker_sprite.start_x
+            self.worker_sprite.center_y = self.worker_sprite.start_y
         else:
             message = self.location.get_message()
             if message:

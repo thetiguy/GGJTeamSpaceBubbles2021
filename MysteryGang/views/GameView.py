@@ -34,10 +34,12 @@ class WorkerSprite(arcade.Sprite):
 
     locked = False
 
-    def __init__(self, worker, scale):
+    def __init__(self, worker, scale, center_x, center_y):
         self.worker = worker
+        self.start_x = center_x
+        self.start_y = center_y
         path = PROFILE_PREFIX.format('{0}.png'.format(worker.name))
-        super().__init__(path, scale)
+        super().__init__(path, scale, center_x=center_x, center_y=center_y)
 
 
 class GameView(arcade.View):
@@ -110,10 +112,11 @@ class GameView(arcade.View):
             self.location_labels.append((x, y, loc))
 
         for i, investigator in enumerate(self.investigators):
-            ws = WorkerSprite(investigator, 0.025)
-            ws.center_x = 2 * width / 5
-            ws.center_y = height - 100 * (i + 1)
+            ws = WorkerSprite(
+                investigator, 0.025, center_x=2 * width / 5,
+                center_y = height - 100 * (i + 1))
             self.workerSprites.append(ws)
+            investigator.worker_sprite = ws
 
     def on_draw(self):
         """Render the screen."""
@@ -231,7 +234,7 @@ class GameView(arcade.View):
         if self.heldWorker:
             hits = self.heldWorker.collides_with_list(self.locationSprites)
             if hits:
-                self.heldWorker.worker.traverse(hits[0].location)
+                self.heldWorker.worker.traverse(hits[0])
                 self.heldWorker.locked = True
             else:
                 self.heldWorker.center_x = self.worker_start_pos_x
