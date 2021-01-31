@@ -46,7 +46,7 @@ class ChatPane(Pane):
             send_left = self.left + buff
             send_right = self.right - buff
             send_bottom = self.bottom + buff
-            send_top = send_bottom + MESSAGE_LINE_HEIGHT * self.send_box.lines + 8
+            send_top = send_bottom + MESSAGE_LINE_HEIGHT * self.send_box.lines + 8  # NOQA
             self.send_box.resize(send_left, send_right, send_top, send_bottom)
         inside_height = top - bottom - self.border_width * 2
         msg_slots = int(inside_height / (MESSAGE_LINE_HEIGHT + 4))

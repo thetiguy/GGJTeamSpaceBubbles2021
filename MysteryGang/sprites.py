@@ -1,6 +1,6 @@
 import arcade
 
-from .constants import ASSET_PREFIX, PROFILE_PREFIX
+from .constants import PROFILE_PREFIX
 
 
 class LocationSprite(arcade.SpriteSolidColor):

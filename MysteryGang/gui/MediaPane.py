@@ -10,7 +10,7 @@ class MediaPane(Pane):
     def __init__(self, left, right, top, bottom, asset, window):
         super().__init__(left, right, top, bottom,
                          border_color=arcade.color.CATALINA_BLUE)
-        
+
         self.window = window
         self.display(asset)
 

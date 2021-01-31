@@ -10,7 +10,7 @@ from pyglet import clock
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
 from ..constants import (ASSET_PREFIX, BORDER_WIDTH, FONTS, GAME_LENGTH,
-                         MUSIC_PREFIX, PROFILE_PREFIX, SPEED, SPRITE_SIZE,
+                         MUSIC_PREFIX, SPEED, SPRITE_SIZE,
                          TIME_DISPLAY_FACTOR)
 from ..resources import Location, Investigator
 from ..sprites import LocationSprite, WorkerSprite
