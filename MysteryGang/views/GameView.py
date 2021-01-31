@@ -253,6 +253,9 @@ class GameView(arcade.View):
             if is_cap:
                 key_val = key_val.upper()
             self.chat_pane.send_key(key_val)
+        elif key == arcade.key.BACKSPACE:
+            key_val = 'Backspace'
+            self.chat_pane.mod_buffer(key_val)
         elif key in [arcade.key.ENTER, arcade.key.NUM_ENTER]:
             key_val = 'Enter'
             self.chat_pane.send_msg_buffer()

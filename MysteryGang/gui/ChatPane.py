@@ -56,13 +56,8 @@ class ChatPane(Pane):
         """Handles keys from main UI."""
         self.send_box.send_key(key)
 
-    def show_msg_buffer(self):
-        msg = self.send_box.get_current_msg()
-        print(f'[{msg}]')
-
     def send_msg_buffer(self):
         msg = self.send_box.get_current_msg()
-        self.show_msg_buffer()
         self.send_msg('Worker', msg)
         self.send_box.clear()
 
@@ -141,6 +136,11 @@ class ChatPane(Pane):
                              anchor_y='bottom')
             n = n + lines  # Increment messages, accounting for multilines
 
+    def mod_buffer(self, key):
+        """Edite to the msg buffer, ie. backspace."""
+        if key == 'Backspace' and len(self.send_box.content) > 0:
+            self.send_box.content.pop(len(self.send_box.content) - 1)
+
 
 class ChatBox(Pane):
     """User types messages here"""
@@ -164,6 +164,7 @@ class ChatBox(Pane):
 
     def clear(self):
         self.content = []
+        self.lines = 1
 
     def get_current_msg(self):
         msg = ''.join(self.content)
