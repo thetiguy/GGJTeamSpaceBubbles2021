@@ -1,9 +1,7 @@
 import arcade
 
 from .views import OpeningView, GameView, PauseView
-
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+from .constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
 
 class MysteryGangWindow(arcade.Window):
