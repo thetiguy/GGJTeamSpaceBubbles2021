@@ -11,6 +11,7 @@ class OpeningView(arcade.View):
         """ This is run once when we switch to this view """
         self.media = arcade.load_texture('assets/MysteryGangTitle.png')
         arcade.set_background_color(arcade.color.CELESTIAL_BLUE)
+        self.window.switch_music('pause.ogg')
 
     def on_draw(self):
         """ Draw this view """
