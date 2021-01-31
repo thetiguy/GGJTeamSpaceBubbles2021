@@ -39,18 +39,18 @@ class Investigator:
         # No, Mr. Bond, I expect you to die!
         rand = random()
         if rand < self.exhaustion / 20:
-            clock.schedule_interval(self.die, INVESTIGATION_LENGTH * rand)
+            clock.schedule_once(self.die, INVESTIGATION_LENGTH * rand)
             return
 
         # They get tired out if it's their specialty, but they go faster
         if self.specialty in (location.element1, location.element2):
             self.exhaustion += 1
-            clock.schedule_interval(
+            clock.schedule_once(
                 self.report, REPORT_FREQUENCY, INVESTIGATION_LENGTH * 0.75)
             return
 
         # Just your average joe, taking his good old time
-        clock.schedule_interval(
+        clock.schedule_once(
             self.report, REPORT_FREQUENCY, INVESTIGATION_LENGTH)
 
     def die(self, delay):
