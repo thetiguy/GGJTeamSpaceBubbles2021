@@ -10,7 +10,7 @@ CLUE_HEIGHT = 20
 class ClueButton(UIFlatButton):
     def __init__(self, clue, center_x, center_y, width, height, align,
                  media_pane):
-        super().__init__( # Add some left padding for beauty!
+        super().__init__(  # Add some left padding for beauty!
             ' {0}'.format(clue), center_x, center_y, width, height, align)
         self.clue = clue
         self.media_pane = media_pane

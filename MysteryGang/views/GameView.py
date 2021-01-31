@@ -61,6 +61,7 @@ class GameView(arcade.View):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.color.CYAN)
         self.window.switch_music('start.ogg')
+        self.window.media_player.volume = 0.75
 
     def setup(self):
         """Set up the game variables. Call to re-start the game."""

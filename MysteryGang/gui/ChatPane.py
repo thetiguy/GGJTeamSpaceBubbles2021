@@ -70,7 +70,8 @@ class ChatPane(Pane):
 
     def recv_msg(self, source, msg, attachment=None):
         """place a message from a working into the chat."""
-        self.messages.append(ChatMessage(source, self.player_worker, msg, attachment))
+        self.messages.append(ChatMessage(
+            source, self.player_worker, msg, attachment))
         arcade.Sound(MUSIC_PREFIX.format('sfx_text_notification.ogg')).play()
         print('Ding!')
 
@@ -86,8 +87,8 @@ class ChatPane(Pane):
 
         msg_pool = self.messages
         if self.scroll_offset > 0:
-            calc_offset = max(self.scroll_offset, 10)
-            msg_pool = self.messages[:self.scroll_offset]
+            calc_offset = max(len(msg_pool) - self.scroll_offset, 15)
+            msg_pool = self.messages[:calc_offset]
         for cm in reversed(msg_pool):
             # calc stuff
             if cm.sender == self.player_worker:
