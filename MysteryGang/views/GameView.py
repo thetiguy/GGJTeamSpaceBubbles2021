@@ -1,11 +1,12 @@
 from datetime import datetime
 import json
+from random import random, shuffle
 
 import arcade
 from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
-from ..constants import ASSET_PREFIX, BORDER_WIDTH, MUSIC_PREFIX
+from ..constants import ASSET_PREFIX, BORDER_WIDTH, MUSIC_PREFIX, SPEED
 from ..resources import Location, Investigator
 
 # A temporary hardcoding of clues
@@ -62,8 +63,19 @@ class GameView(arcade.View):
         # Load the locations and investigators from file
         with open(ASSET_PREFIX.format('resources.json')) as f:
             data = json.load(f)
-        for name, location in data['locations'].items():
-            self.locations.append(Location(name, **location))
+
+        clues = data['clues']
+        # Generate random delays between 0.5 and 12
+        delays = sorted([random() * 11.5 + 0.5 for clue in data['clues']])
+        # Randomize which locations we'll use
+        locations = list(data['locations'].items())
+        shuffle(locations)
+        # Assign delays and clues to locations. The clues should have delays
+        # in increasing order. This is because clues later in the list are
+        # considered more useful and require more time to find.
+        for delay, clue, (name, location) in zip(delays, clues, locations):
+            self.locations.append(Location(
+                name, delay * SPEED, clue, **location))
         for name, investigator in data['investigators'].items():
             self.investigators.append(Investigator(
                 self.chat_pane, name, **investigator))

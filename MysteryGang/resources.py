@@ -2,20 +2,21 @@ from random import random
 
 from pyglet import clock
 
-from .constants import INVESTIGATION_LENGTH, REPORT_FREQUENCY
-
 
 class Location:
-    def __init__(self, name, element1, element2, clue, death_message,
+    def __init__(self, name, delay, clue, element1, element2, death_message,
                  success_message, messages):
         self.name = name
+        self.delay = delay
+        self.clue = clue
         self.element1 = element1
         self.element2 = element2
-        self.clue = clue
         self.death_message = death_message
         self.success_message = success_message
         self.messages = messages
+
         self.i = -1
+        self.frequency = self.delay / len(self.messages)
 
     def get_message(self):
         """Get's an update during the journey.
@@ -39,19 +40,20 @@ class Investigator:
         # No, Mr. Bond, I expect you to die!
         rand = random()
         if rand < self.exhaustion / 20:
-            clock.schedule_once(self.die, INVESTIGATION_LENGTH * rand)
+            clock.schedule_once(self.die, self.location.delay * rand)
             return
 
         # They get tired out if it's their specialty, but they go faster
         if self.specialty in (location.element1, location.element2):
             self.exhaustion += 1
             clock.schedule_once(
-                self.report, REPORT_FREQUENCY, INVESTIGATION_LENGTH * 0.75)
+                self.report, self.location.frequency * 0.75,
+                self.location.delay * 0.75)
             return
 
         # Just your average joe, taking his good old time
         clock.schedule_once(
-            self.report, REPORT_FREQUENCY, INVESTIGATION_LENGTH)
+            self.report, self.location.frequency, self.location.delay)
 
     def die(self, delay):
         self.chat_pane.recv_msg(self.name, self.location.death_message)
@@ -65,4 +67,4 @@ class Investigator:
             message = self.location.get_message()
             if message:
                 self.chat_pane.recv_msg(self.name, message)
-            clock.schedule_once(self.report, REPORT_FREQUENCY, length)
+            clock.schedule_once(self.report, self.location.frequency, length)
