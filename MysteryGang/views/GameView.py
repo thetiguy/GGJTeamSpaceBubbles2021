@@ -52,8 +52,10 @@ class GameView(arcade.View):
         self.workerSprites = arcade.SpriteList()
         self.investigators = []
         self.ui_manager = UIManager()
+        start_music = '02_game_start_seamless-final.ogg'
         self.media_player = arcade.Sound(
-            MUSIC_PREFIX.format('broken_loop_3.ogg')).play(loop=True)
+            MUSIC_PREFIX.format(start_music)).play(loop=True)
+        self.media_player.volume = 0.75
 
         self.heldLocations = []
         self.heldWorker = None
