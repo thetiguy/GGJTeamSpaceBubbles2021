@@ -80,8 +80,9 @@ class GameView(arcade.View):
         for name, investigator in data['investigators'].items():
             self.investigators.append(Investigator(
                 self.chat_pane, self.clue_pane, name, **investigator))
-        # Load starting messages
+        # Load messages
         self.starting_messages = data['starting_messages']
+        self.victim_death_message = data['victim_death']
 
         spacing = (height - BORDER_WIDTH * 2) / 6
         for pos, loc in enumerate(self.locations):
@@ -106,7 +107,7 @@ class GameView(arcade.View):
         if i == len(self.starting_messages) - 1:  # Last message
             self.chat_pane.send_msg(
                 self.victim.name, self.starting_messages[i])
-            self.countdown = GAME_LENGTH
+            self.countdown = GAME_LENGTH * SPEED
         else:
             self.chat_pane.recv_msg(self.victim, self.starting_messages[i])
             clock.schedule_once(
@@ -171,7 +172,13 @@ class GameView(arcade.View):
         """
         # Update the global countdown
         if self.countdown:
+            print(self.countdown)
             self.countdown -= delta_time
+            if self.countdown < 1:  # Game over
+                self.countdown = None
+                self.window.ending_view.won = False
+                self.chat_pane.recv_msg(self.victim, self.victim_death_message)
+                clock.schedule_once(self.show_ending_view, 10)
 
         # Update each investigator's countdown
         for investigator in self.investigators:
@@ -182,6 +189,10 @@ class GameView(arcade.View):
                 loc_sprite.location.countdown > 0
             ):
                 loc_sprite.location.countdown -= delta_time
+
+    def show_ending_view(self, delay):
+        self.ui_manager.unregister_handlers()
+        self.window.show_view(self.window.ending_view)
 
     def on_key_press(self, key, key_modifiers):
         """Called whenever a key on the keyboard is pressed.
