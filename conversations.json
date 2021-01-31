@@ -1,2 +1,13 @@
-{"snowy alley":["It's eerily quiet when it snows like this...", "I think I see something shining in the snow."]}
+{
+    "icy cave":["Cavediving is hard enough when it's warm"],
+    "frozen lake":["Did the ice just creak?"],
+    "office building":["Hope security doesn't find me"],
+    "forest lake":["This is probably nice when its not spooky"],
+    "construction site":["Should've brought a hard hat with me"],
+    "snowy alley":["It's eerily quiet when it snows like this...", "I think I see something shining in the snow."],
+    "cemetary":["If I see a ghost, I am running"],
+    "park":["I think I heard there were drug dealers in this park at night"],
+    "forest cabin":["Getting some real Evil Dead vibes here"],
+    "hot spring":["I didn't know we had one of these in the area"]
+}
 
