@@ -3,7 +3,7 @@
     "icy cave": {
       "element1": "ice",
       "element2": "rock",
-      "death_message": "The ledge here is covered in ice, but I think I can make it",
+      "death_message": "The ledge here is covered in ice, but I think I can make it\n USER HAS DISCONNECTED",
       "success_message": "I found something in the wall of the cave",
       "messages": [
           "Cavediving is hard enough when it's warm",
@@ -16,7 +16,7 @@
     "frozen lake": {
       "element1": "ice",
       "element2": "water",
-      "death_message": "Ok, that was definitely creaking, maybe cracking, I'll just... back up... slowly...",
+      "death_message": "Ok, that was definitely creaking, maybe cracking, I'll just... back up... slowly...\n USER HAS DISCONNECTED",
       "success_message": "I found something trapped under the ice",
       "messages": [
           "Did the ice just creak?",
@@ -29,7 +29,7 @@
     "office building": {
       "element1": "urban",
       "element2": "office",
-      "death_message": "Hold on, the fire alarm is going off. I should be able to get out the emergency exit",
+      "death_message": "Hold on, the fire alarm is going off. I should be able to get out the emergency exit\n USER HAS DISCONNECTED",
       "success_message": "I managed to download a file from the computer",
       "messages": [
           "Hope security doesn't find me",
@@ -42,7 +42,7 @@
     "forest lake": {
       "element1": "forest",
       "element2": "water",
-      "death_message": "Something is moving in the lake. I should be safe on the shore, but its getting closer",
+      "death_message": "Something is moving in the lake. I should be safe on the shore, but its getting closer\n USER HAS DISCONNECTED",
       "success_message": "I found something buried near a tree",
       "messages": [
           "This is probably nice when its not spooky",
@@ -55,7 +55,7 @@
     "construction site": {
       "element1": "office",
       "element2": "rock",
-      "death_message": "I could swear I heard the crane startup, but I don't see anybody in the cab. I'm going to check it out",
+      "death_message": "I could swear I heard the crane startup, but I don't see anybody in the cab. I'm going to check it out\n USER HAS DISCONNECTED",
       "success_message": "Found something, it was tucked in someone's toolbox",
       "messages": [
           "Should've brought a hard hat with me",
@@ -69,7 +69,7 @@
     "snowy alley": {
       "element1": "ice",
       "element2": "urban",
-      "death_message": "I think someone just came in the alley, I'm hiding behind the dumpster",
+      "death_message": "I think someone just came in the alley, I'm hiding behind the dumpster\n USER HAS DISCONNECTED",
       "success_message": "I found something buried in the snow",
       "messages": [
           "It's eerily quiet when it snows like this...", 
@@ -82,7 +82,7 @@
     "cemetary": {
       "element1": "urban",
       "element2": "rock",
-      "death_message": "Hold on, I think I see someone... I'm going to ask them for help.",
+      "death_message": "Hold on, I think I see someone... I'm going to ask them for help.\n USER HAS DISCONNECTED",
       "success_message": "I found something scrawled on the back of a gravestone",
       "messages": [
           "If I see a ghost, I am running",
@@ -95,7 +95,7 @@
     "park": {
       "element1": "urban",
       "element2": "forest",
-      "death_message": "I think someone is following me, I'm going to make a break for it, and see if I can get back to the street",
+      "death_message": "I think someone is following me, I'm going to make a break for it, and see if I can get back to the street\n USER HAS DISCONNECTED",
       "success_message": "I found something in one of the bushes.",
       "messages": [
           "I think I heard there were drug dealers in this park at night",
@@ -108,19 +108,19 @@
     "forest cabin": {
       "element1": "forest",
       "element2": "office",
-      "death_message": "I found a recorder, some sort of notes from the researcher. I'm going to play it, I'll let you know what it says",
+      "death_message": "I found a recorder, some sort of notes from the researcher. I'm going to play it, I'll let you know what it says\n USER HAS DISCONNECTED",
       "success_message": "I found something shoved in a book",
       "messages": [
           "Getting some real Evil Dead vibes here",
           "Why do the crazy researchers always choose the creepiest cabins",
-          "OMG IM GONNA DIE...\nNever mind... It was a raccoon...",
+          "OMG IM GONNA DIE...Never mind... It was a raccoon...",
           "I found some old magazines, um... nevemind"
       ]
     },
     "hot spring": {
       "element1": "water",
       "element2": "rock",
-      "death_message": "I might need to check the other bath, but I thought I heard someone in there",
+      "death_message": "I might need to check the other bath, but I thought I heard someone in there\n USER HAS DISCONNECTED",
       "success_message": "I found something in one of the lockers",
       "messages": [
           "I didn't know we had one of these in the area",
@@ -157,5 +157,18 @@
         "specialty": "urban"
     }
   },
-  "clues": ["clue1.png", "clue2.png", "clue3.png", "clue4.png", "clue5.png", "clue6.png"]
+  "clues": ["clue1.png", "clue2.png", "clue3.png", "clue4.png", "clue5.png", "clue6.png"],
+  "starting_messages": [
+    "Hey, guys. I need some help.",
+    "Remember that tomb I wanted to explore?",
+    "I know you told me not to, but I couldn't help myself",
+    "I went anyway and I got trapped. There's something behind me",
+    "I managed to grab a photo of it, I think it might be the Eye that Follows from the book",
+    "Its coming for me but its very slow, I think it will take about 14 hours",
+    "I'm stuck in this room, there's a door with runes on it, I'll send you a photo",
+    "Chadwick Pendleton built this room, maybe you guys could find some clues?",
+    "We're on it, I know just where to send the team. Stay safe."
+  ],
+  "ending_message": "Ok, I'm through, I'll let you know what I find in the next chamber.",
+  "victim_death": "I can hear it getting close, I'm going to try the door. I'll let you know what I find if I reach the next chamber. USER HAS DISCONNECTED"
 }
