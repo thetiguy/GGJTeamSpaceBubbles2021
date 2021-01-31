@@ -8,7 +8,9 @@
       "messages": [
           "Cavediving is hard enough when it's warm",
           "Almost slipped but I caught myself",
-          "I'll be honest, the light makes some of this ice really pretty"
+          "I'll be honest, the light makes some of this ice really pretty",
+          "Some of this rock is really soft, gonna have to anchor into the ice",
+          "How deep does this cave go?"
       ]
     },
     "frozen lake": {
@@ -18,7 +20,10 @@
       "success_message": "I found something trapped under the ice",
       "messages": [
           "Did the ice just creak?",
-          "I hear something skittering on the ice... I hope its just the wind of something"
+          "I hear something skittering on the ice... I hope its just the wind or something",
+          "Black ice is safe right? Its the grey stuff you can't walk on",
+          "I think I see a box or something under the ice",
+          "This is why I don't like ice skating"
       ]
     },
     "office building": {
@@ -29,7 +34,9 @@
       "messages": [
           "Hope security doesn't find me",
           "Somebody must have burnt some popcorn, ugh, hate when that happens",
-          "I know its not what I'm looking for, but I found someone's candy drawer... Jackpot"
+          "I know its not what I'm looking for, but I found someone's candy drawer... Jackpot",
+          "The printer went off, scared the hell out of me",
+          "I think someone is in their office working late, but I don't think they saw me"
       ]
     },
     "forest lake": {
@@ -39,7 +46,10 @@
       "success_message": "I found something buried near a tree",
       "messages": [
           "This is probably nice when its not spooky",
-          "Somebody seems to have been digging near some of these trees"
+          "Somebody seems to have been digging near some of these trees",
+          "There's a little bit of a path going around the lake",
+          "Huh, there are some footprints in the mud here",
+          "I wonder how many people come out here?"
       ]
     },
     "construction site": {
@@ -49,7 +59,11 @@
       "success_message": "Found something, it was tucked in someone's toolbox",
       "messages": [
           "Should've brought a hard hat with me",
-          "OSHA would have a field day here."
+          "OSHA would have a field day here.",
+          "I think someone forgot their lunch box",
+          "Mom always warned me not to play in work sites... hope she was wrong",
+          "What are they even building here?"
+
       ]
     },
     "snowy alley": {
@@ -58,7 +72,8 @@
       "death_message": "I think someone just came in the alley, I'm hiding behind the dumpster",
       "success_message": "I found something buried in the snow",
       "messages": [
-          "It's eerily quiet when it snows like this...", "I think I see something shining in the snow",
+          "It's eerily quiet when it snows like this...", 
+          "I think I see something shining in the snow",
           "Eww, I think I stepped in something... unpleasant",
           "This place reaks. I hope its the dumpster...",
           "Ok, that rat was huge. I'm a little grossed out, but kind of impressed too"
@@ -71,7 +86,10 @@
       "success_message": "I found something scrawled on the back of a gravestone",
       "messages": [
           "If I see a ghost, I am running",
-          "You know, in a zombie virus outbreak, a cemetary is actually probably pretty safe."
+          "You know, in a zombie virus outbreak, a cemetary is actually probably pretty safe",
+          "Its always sad to see the markers with the dates close together",
+          "How old is this cemetary?",
+          "Someone make sure they put Brave Investigator on my tombstone when I die"
       ]
     },
     "park": {
@@ -82,7 +100,9 @@
       "messages": [
           "I think I heard there were drug dealers in this park at night",
           "Why do they tell you to stay off the grass in the park. Isn't that kind of the point?",
-          "Huh, they have a little dog park area, that's kind of nice"
+          "Huh, they have a little dog park area, that's kind of nice",
+          "Nothing in the pavilions, thought I saw something under the tables",
+          "There's more litter than I would have thought"
       ]
     },
     "forest cabin": {
@@ -93,7 +113,8 @@
       "messages": [
           "Getting some real Evil Dead vibes here",
           "Why do the crazy researchers always choose the creepiest cabins",
-          "OMG IM GONNA DIE...\nNever mind... It was a raccoon..."
+          "OMG IM GONNA DIE...\nNever mind... It was a raccoon...",
+          "I found some old magazines, um... nevemind"
       ]
     },
     "hot spring": {
@@ -103,7 +124,10 @@
       "success_message": "I found something in one of the lockers",
       "messages": [
           "I didn't know we had one of these in the area",
-          "I've got to come back when they are open. I could use some relaxation after this case."
+          "I've got to come back when they are open. I could use some relaxation after this case.",
+          "There are a lot of lockers in here",
+          "Found where they keep the extra towels",
+          "I don't know why I thought to check the shower drains, but I regret it"
       ]
     }
   },
