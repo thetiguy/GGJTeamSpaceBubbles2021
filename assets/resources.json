@@ -121,30 +121,5 @@
         "specialty": "urban"
     }
   },
-  "clues": {
-    "clue1": {
-      "filename": "clue1.png",
-      "weight": 1
-    },
-    "clue2": {
-      "filename": "clue1.png",
-      "weight": 2
-    },
-    "clue3": {
-      "filename": "clue1.png",
-      "weight": 3
-    },
-    "clue4": {
-      "filename": "clue1.png",
-      "weight": 4
-    },
-    "clue5": {
-      "filename": "clue1.png",
-      "weight": 5
-    },
-    "clue6": {
-      "filename": "clue1.png",
-      "weight": 6
-    }
-  }
+  "clues": ["clue1.png", "clue2.png", "clue3.png", "clue4.png", "clue5.png", "clue6.png"]
 }
