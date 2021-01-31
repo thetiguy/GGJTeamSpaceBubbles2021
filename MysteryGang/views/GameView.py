@@ -104,12 +104,15 @@ class GameView(arcade.View):
         clock.schedule_once(self.send_starting_message, random() * 5 + 1, 0)
 
     def send_starting_message(self, delay, i):
+        message = self.starting_messages[i]
+        if message['clue']:
+            self.clue_pane.add_clue(message['clue'])
         if i == len(self.starting_messages) - 1:  # Last message
             self.chat_pane.send_msg(
-                self.victim.name, self.starting_messages[i])
+                self.victim.name, message['message'])
             self.countdown = GAME_LENGTH * SPEED
         else:
-            self.chat_pane.recv_msg(self.victim, self.starting_messages[i])
+            self.chat_pane.recv_msg(self.victim, message['message'])
             clock.schedule_once(
                 self.send_starting_message, random() * 5 + 1, i + 1)
 
