@@ -1,0 +1,34 @@
+{
+  "locations": {
+    "snowy cave": {
+      "element1": "ice",
+      "element2": "rock",
+      "clue": "clue2.txt",
+      "death_message": "This is a death message.",
+      "success_message": "This is a success message.",
+      "messages": [
+          "This is the first message.",
+          "This is the second message."
+      ]
+    },
+    "hot spring": {
+      "element1": "water",
+      "element2": "rock",
+      "clue": "clue3.txt",
+      "death_message": "This is a death message.",
+      "success_message": "This is a success message.",
+      "messages": [
+          "This is the first message.",
+          "This is the second message."
+      ]
+    }
+  },
+  "investigators": {
+    "Bob": {
+        "specialty": "ice"
+    },
+    "Sally": {
+        "specialty": "water"
+    }
+  }
+}

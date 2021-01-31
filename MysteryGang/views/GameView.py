@@ -1,10 +1,12 @@
 from datetime import datetime
+import json
 
 import arcade
 from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane
-from ..constants import MUSIC_PREFIX
+from ..constants import ASSET_PREFIX, MUSIC_PREFIX
+from ..resources import Location, Investigator
 
 # A temporary hardcoding of clues
 CLUES = [
@@ -30,6 +32,8 @@ class GameView(arcade.View):
     def __init__(self):
         super().__init__()
         self.panes = []
+        self.locations = []
+        self.investigators = []
         self.ui_manager = UIManager()
         self.media_player = arcade.Sound(
             MUSIC_PREFIX.format('broken_loop_3.ogg')).play(loop=True)
@@ -47,10 +51,18 @@ class GameView(arcade.View):
         self.clue_pane = CluePane(
             1, width / 3, height / 2, 1, self.ui_manager, self.media_pane)
         self.clue_pane.add_clue(*CLUES)
-
         self.chat_pane = ChatPane(
             width / 3, width - 1, height - 1, 1, self.ui_manager)
         self.panes = [self.clue_pane, self.media_pane, self.chat_pane]
+
+        # Load the locations and investigators from file
+        with open(ASSET_PREFIX.format('resources.json')) as f:
+            data = json.load(f)
+        for name, location in data['locations'].items():
+            self.locations.append(Location(name, **location))
+        for name, investigator in data['investigators'].items():
+            self.investigators.append(Investigator(
+                self.chat_pane, name, **investigator))
 
     def on_draw(self):
         """Render the screen."""
