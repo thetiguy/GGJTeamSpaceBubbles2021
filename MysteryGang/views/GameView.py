@@ -65,8 +65,8 @@ class GameView(arcade.View):
             data = json.load(f)
 
         clues = data['clues']
-        # Generate random delays between 0.5 and 12
-        delays = sorted([random() * 11.5 + 0.5 for clue in data['clues']])
+        # Generate delays between 0.5 and 12 hours (expressed in seconds)
+        delays = sorted([random() * 41400 + 1800 for clue in data['clues']])
         # Randomize which locations we'll use
         locations = list(data['locations'].items())
         shuffle(locations)
@@ -79,6 +79,7 @@ class GameView(arcade.View):
         for name, investigator in data['investigators'].items():
             self.investigators.append(Investigator(
                 self.chat_pane, name, **investigator))
+        self.investigators[0].traverse(self.locations[0])
 
     def on_draw(self):
         """Render the screen."""

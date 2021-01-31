@@ -16,7 +16,7 @@ class Location:
         self.messages = messages
 
         self.i = -1
-        self.frequency = self.delay / len(self.messages)
+        self.frequency = self.delay / len(self.messages) + 1
 
     def get_message(self):
         """Get's an update during the journey.
