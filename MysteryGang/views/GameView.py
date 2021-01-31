@@ -129,20 +129,15 @@ class GameView(arcade.View):
             arcade.draw_lrtb_rectangle_filled(
                 bar_x, bar_x + 200, y - 35, y - 45, bar_bg)
 
-            if loc.countdown:
+            if loc.countdown:  # Fill progress bar
                 percent_complete = 1 - (loc.countdown / loc.delay)
                 arcade.draw_lrtb_rectangle_filled(
                     bar_x, bar_x + 200 * percent_complete, y - 35, y - 45,
                     bar_fill)
 
+            label_text = f'{loc.name}\n{loc.element1}\n{loc.element2}'
             arcade.draw_text(
-                loc.name, label_x, y + 10, label_color, font_size=15,
-                font_name=FONTS, anchor_x='left', anchor_y='bottom')
-            arcade.draw_text(
-                loc.element1, label_x, y - 10, label_color, font_size=15,
-                font_name=FONTS, anchor_x='left', anchor_y='bottom')
-            arcade.draw_text(
-                loc.element2, label_x, y - 30, label_color, font_size=15,
+                label_text, label_x, y - 30, label_color, font_size=15,
                 font_name=FONTS, anchor_x='left', anchor_y='bottom')
         self.workerSprites.draw()
 
