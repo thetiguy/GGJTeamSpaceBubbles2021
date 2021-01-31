@@ -5,8 +5,11 @@ import arcade
 from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
-from ..constants import ASSET_PREFIX, BORDER_WIDTH, MUSIC_PREFIX
+from ..constants import ASSET_PREFIX, MUSIC_PREFIX, CLUE_PREFIX
 from ..resources import Location, Investigator
+
+
+SPRITE_SIZE = 80
 
 # A temporary hardcoding of clues
 CLUES = [
@@ -26,6 +29,25 @@ CLUES = [
 ]
 
 
+class LocationSprite(arcade.SpriteSolidColor):
+    """investiator sprite object"""
+
+    def __init__(self, location, w, h, color=None):
+        self.location = location
+        if color is None:
+            color = arcade.color.RED
+        super().__init__(w, h, color)
+
+
+class WorkerSprite(arcade.Sprite):
+    """investiator sprite object"""
+
+    def __init__(self, worker):
+        self.worker = worker
+        path = CLUE_PREFIX.format(worker)
+        super().__init__(path)
+
+
 class GameView(arcade.View):
     """Main view for test game."""
 
@@ -33,10 +55,15 @@ class GameView(arcade.View):
         super().__init__()
         self.panes = []
         self.locations = []
+        self.locationSprites = arcade.SpriteList()
+        self.workerSprites = arcade.SpriteList()
         self.investigators = []
         self.ui_manager = UIManager()
         self.media_player = arcade.Sound(
             MUSIC_PREFIX.format('broken_loop_3.ogg')).play(loop=True)
+
+        self.heldLocations = []
+        self.heldWorker = None
 
     def on_show(self):
         """ This is run once when we switch to this view """
@@ -68,6 +95,18 @@ class GameView(arcade.View):
             self.investigators.append(Investigator(
                 self.chat_pane, name, **investigator))
 
+        starter_location = None
+        ls = LocationSprite(starter_location, SPRITE_SIZE, SPRITE_SIZE)
+        ls.center_x = 3 * width / 5
+        ls.center_y = height - 100
+        self.locationSprites.append(ls)
+
+        starter_worker = 'BrianDelight112.png'
+        ws = WorkerSprite(starter_worker)
+        ws.center_x = 2 * width / 5
+        ws.center_y = height - 100
+        self.workerSprites.append(ws)
+
     def on_draw(self):
         """Render the screen."""
         # This command should happen before we start drawing. It will clear the
@@ -75,6 +114,8 @@ class GameView(arcade.View):
         arcade.start_render()
         for pane in self.panes:
             pane.on_draw()
+        self.locationSprites.draw()
+        self.workerSprites.draw()
 
     def on_resize(self, width, height):
         """This method is automatically called when the window is resized."""
@@ -117,7 +158,7 @@ class GameView(arcade.View):
             # hide ui elements, call register_handlers to reverse
             self.ui_manager.unregister_handlers()
             self.window.show_view(pause)
-        elif is_ctrl and key == arcade.key.E: # Force an EndingView.py for testing
+        elif is_ctrl and key == arcade.key.E:  # Force EndingView for testing
             ending = self.window.ending_view
             self.ui_manager.unregister_handlers()
             self.window.show_view(ending)
@@ -131,15 +172,29 @@ class GameView(arcade.View):
         """Called whenever the user lets off a previously pressed key."""
         pass
 
-    def on_mouse_motion(self, x, y, delta_x, delta_y):
+    def on_mouse_motion(self, x, y, dx, dy):
         """Called whenever the mouse moves."""
-        pass
+
+        if self.heldWorker:
+            self.heldWorker.center_x += dx
+            self.heldWorker.center_y += dy
 
     def on_mouse_press(self, x, y, button, key_modifiers):
         """Called when the user presses a mouse button."""
         now = datetime.now()
         print('pressed x:{} y:{} @ {}'.format(x, y, now))
 
+        hit_workers = arcade.get_sprites_at_point((x, y), self.workerSprites)
+        if len(hit_workers) == 1:
+            self.heldWorker = hit_workers[0]
+
     def on_mouse_release(self, x, y, button, key_modifiers):
         """Called when the user unpresses a mouse button."""
-        pass
+
+        if self.heldWorker:
+            hits = self.heldWorker.collides_with_list(self.locationSprites)
+            print(hits)
+            if hits:
+                self.chat_pane.recv_msg('Brian', 'I am going to the location')
+
+        self.heldWorker = None

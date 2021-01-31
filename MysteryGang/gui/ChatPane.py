@@ -98,7 +98,7 @@ class ChatPane(Pane):
                 color = arcade.color.WHITE
             right = self.right - self.border_width
 
-            lines = 1 # gonna need to resize long ones later
+            lines = 1  # gonna need to resize long ones later
             height = MESSAGE_LINE_HEIGHT * lines
 
             padded_line_height = (MESSAGE_LINE_HEIGHT + 4)

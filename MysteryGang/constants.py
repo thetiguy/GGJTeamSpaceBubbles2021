@@ -10,4 +10,4 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 SCREEN_TITLE = "wooooo"
 
-MORTEEVITA = True # Used for testing life and death endings
+MORTEEVITA = True  # Used for testing life and death endings
