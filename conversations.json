@@ -1,5 +1,10 @@
 {
-    "icy cave":["Cavediving is hard enough when it's warm"],
+    "icy cave":{
+        "messages": ["Cavediving is hard enough when it's warm"],
+        "success": "I found something buried in the ice",
+        "death": "The ledge here is covered in ice, but I think I can make it.",
+        "terrain": ["ice", "rock"]
+    },
     "frozen lake":["Did the ice just creak?"],
     "office building":["Hope security doesn't find me"],
     "forest lake":["This is probably nice when its not spooky"],
