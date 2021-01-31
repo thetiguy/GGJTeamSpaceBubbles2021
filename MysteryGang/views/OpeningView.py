@@ -21,10 +21,10 @@ class OpeningView(arcade.View):
             0, 0, width, height,
             self.media)
 
-        arcade.draw_text("Mystery Gang", width / 2, height / 2,
-                         arcade.color.WHITE, font_size=50,
-                         font_name=FONTS,
-                         anchor_x="center")
+        # arcade.draw_text("Mystery Gang", width / 2, height / 2,
+        #                 arcade.color.WHITE, font_size=50,
+        #                 font_name=FONTS,
+        #                 anchor_x="center")
 
         arcade.draw_text("Click or press a key to start", width / 2,
                          height / 2-75, arcade.color.WHITE, font_size=25,
