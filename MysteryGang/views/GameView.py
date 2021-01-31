@@ -158,6 +158,16 @@ class GameView(arcade.View):
         self.app_pane.resize(width / 3, 2 * width / 3, height, 1)
         self.chat_pane.resize(2 * width / 3, width - 1, height, 1)
 
+        spacing = (height - BORDER_WIDTH * 2) / 6
+        self.location_labels = []
+        for pos, ls in enumerate(self.locationSprites):
+            x = width * 0.51
+            y = height - spacing * pos - SPRITE_SIZE / 2 - BORDER_WIDTH * 2
+            ls.center_x = x
+            ls.center_y = y
+            self.location_labels.append((x, y, ls.location))
+
+
     def on_update(self, delta_time):
         """
         All the logic to move, and the game logic goes here.
