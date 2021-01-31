@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 from random import random, shuffle
 from types import SimpleNamespace
+import math
 
 import arcade
 from arcade.gui import UIManager
@@ -37,6 +38,7 @@ class GameView(arcade.View):
         self.location_labels = []
         self.victim = SimpleNamespace(name='Ren', color=(255, 0, 0))
         self.countdown = None
+        self.clock_position = None
 
     def on_show(self):
         """ This is run once when we switch to this view """
@@ -60,6 +62,7 @@ class GameView(arcade.View):
             (2 * width) / 3, width - 1, height, 1, self.ui_manager)
         self.panes = [
             self.clue_pane, self.media_pane, self.chat_pane, self.app_pane]
+        self.clock_position = (width * 0.35, height - BORDER_WIDTH * 2)
 
         # Load the locations and investigators from file
         with open(ASSET_PREFIX.format('resources.json')) as f:
@@ -139,6 +142,17 @@ class GameView(arcade.View):
             arcade.draw_text(
                 label_text, label_x, y - 30, label_color, font_size=15,
                 font_name=FONTS, anchor_x='left', anchor_y='bottom')
+        # Draw countdown Clock
+        if self.countdown:
+            minutes_left = self.countdown / 60
+            hours_left = minutes_left / 60
+            h = math.floor(hours_left)
+            m = math.floor(minutes_left - 60 * h)
+            s = math.floor(self.countdown - (60 * 60 * h) - 60 * m)
+
+            arcade.draw_text(f'{h}:{m}:{s}', *(self.clock_position),
+                             label_color, font_size=15, font_name=FONTS,
+                             anchor_x='left', anchor_y='bottom')
         self.workerSprites.draw()
 
     def on_resize(self, width, height):
@@ -151,6 +165,7 @@ class GameView(arcade.View):
 
         spacing = (height - BORDER_WIDTH * 2) / 6
         self.location_labels = []
+        self.clock_position = (width * 0.35, height - BORDER_WIDTH * 2)
         for pos, ls in enumerate(self.locationSprites):
             x = width * 0.51
             y = height - spacing * pos - SPRITE_SIZE / 2 - BORDER_WIDTH * 2
