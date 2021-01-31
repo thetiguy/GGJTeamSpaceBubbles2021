@@ -74,6 +74,7 @@ class Investigator:
 
     def die(self, delay):
         self.chat_pane.recv_msg(self, self.location.death_message)
+        self.worker_sprite.turn_left()
         arcade.Sound(MUSIC_PREFIX.format('sfx_user_left.ogg')).play()
 
     def report(self, delay, length):
@@ -84,6 +85,7 @@ class Investigator:
             self.clue_pane.add_clue(self.location.clue)
             self.worker_sprite.center_x = self.worker_sprite.start_x
             self.worker_sprite.center_y = self.worker_sprite.start_y
+            self.worker_sprite.locked = False
             self.location_sprite.location.occupied = False
         else:
             message = self.location.get_message()
