@@ -1,7 +1,7 @@
 import arcade
 from arcade.gui import UIManager
 
-from ..constants import FONTS, MORTEEVITA
+from ..constants import FONTS
 
 
 class EndingView(arcade.View):
@@ -11,12 +11,13 @@ class EndingView(arcade.View):
         super().__init__()
         self.game_view = game_view
         self.ui_manager = UIManager()
+        self.won = True
 
     def on_show(self):
         self.setup()
 
         # TODO: Remove before submitting game
-        if MORTEEVITA:
+        if self.won:
             text = "LIFE!!!"
             backcolor = arcade.color.WHITE
         else:
@@ -24,6 +25,7 @@ class EndingView(arcade.View):
             backcolor = arcade.color.BLACK
 
         arcade.set_background_color(backcolor)
+        self.window.switch_music('credits.ogg')
 
     def on_draw(self):
         width, height = self.window.get_size()
@@ -31,7 +33,7 @@ class EndingView(arcade.View):
         arcade.start_render()
 
         # TODO: Remove before submitting game
-        if MORTEEVITA:
+        if self.won:
             text = "LIFE!!!"
             backcolor = arcade.color.WHITE
             textcolor = arcade.color.GREEN
