@@ -7,17 +7,21 @@ from ..constants import CLUE_PREFIX
 class MediaPane(Pane):
     """A pane that display an image."""
 
-    def __init__(self, left, right, top, bottom, asset):
+    def __init__(self, left, right, top, bottom, asset, window):
         super().__init__(left, right, top, bottom,
                          border_color=arcade.color.CATALINA_BLUE)
-
+        
+        self.window = window
         self.display(asset)
 
     def display(self, asset):
         path = CLUE_PREFIX.format(asset)
         ext = asset[-3:]
         if ext == 'wav':
+            # currvol = self.window.media_player.volume
+            # self.window.media_player.volume = 0.01
             arcade.Sound(path).play()
+            # self.window.media_player.volume = currvol
         elif ext == 'png':
             self.media = arcade.load_texture(path)
 

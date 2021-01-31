@@ -157,7 +157,7 @@
         "specialty": "urban"
     }
   },
-  "clues": ["clue1.png", "clue2.png", "clue3.png", "clue4.wav", "clue5.png", "clue6.png"],
+  "clues": ["clue1.png", "clue2.png", "clue3.png", "clue4.png", "clue5.png", "clue6.png"],
   "starting_messages": [
     {"message":"Hey, guys. I need some help.","clue":null},
     {"message":"Remember that tomb I wanted to explore?","clue":null},
@@ -170,5 +170,6 @@
     {"message":"We're on it, I know just where to send the team. Stay safe.","clue":null}
   ],
   "ending_message": "Ok, I'm through, I'll let you know what I find in the next chamber.",
-  "victim_death": "I can hear it getting close, I'm going to try the door. I'll let you know what I find if I reach the next chamber. USER HAS DISCONNECTED"
+  "victim_death": "I can hear it getting close, I'm going to try the door. I'll let you know what I find if I reach the next chamber. USER HAS DISCONNECTED",
+  "solution": "3 spirals 5 stars 0 suns"
 }
