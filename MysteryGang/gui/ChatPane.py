@@ -85,7 +85,7 @@ class ChatPane(Pane):
 
         msg_pool = self.messages
         if self.scroll_offset > 0:
-            calc_offset = self.scroll_offset + 15
+            calc_offset = max(len(msg_pool) - self.scroll_offset, 15)
             msg_pool = self.messages[:calc_offset]
         for cm in reversed(msg_pool):
             # calc stuff
