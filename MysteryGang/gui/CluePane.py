@@ -1,7 +1,7 @@
 import arcade
 from arcade.gui import UIFlatButton
 
-from ..constants import FONTS
+from ..constants import FONTS, MUSIC_PREFIX
 from . import Pane
 
 CLUE_HEIGHT = 20
@@ -16,6 +16,7 @@ class ClueButton(UIFlatButton):
         self.media_pane = media_pane
 
     def on_click(self):
+        arcade.Sound(MUSIC_PREFIX.format('sfx_interface_click.ogg')).play()
         self.media_pane.display(self.clue)
 
 

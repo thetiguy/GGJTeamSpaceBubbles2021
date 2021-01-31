@@ -1,6 +1,9 @@
 from random import random
 
+import arcade
 from pyglet import clock
+
+from .constants import MUSIC_PREFIX
 
 
 class Location:
@@ -71,6 +74,7 @@ class Investigator:
 
     def die(self, delay):
         self.chat_pane.recv_msg(self, self.location.death_message)
+        arcade.Sound(MUSIC_PREFIX.format('sfx_user_left.ogg')).play()
 
     def report(self, delay, length):
         length -= delay
