@@ -1,8 +1,96 @@
 {
   "locations": {
-    "snowy cave": {
+    "icy cave": {
       "element1": "ice",
       "element2": "rock",
+      "clue": "clue2.txt",
+      "death_message": "This is a death message.",
+      "success_message": "This is a success message.",
+      "messages": [
+          "This is the first message.",
+          "This is the second message."
+      ]
+    },
+    "frozen lake": {
+      "element1": "ice",
+      "element2": "water",
+      "clue": "clue2.txt",
+      "death_message": "This is a death message.",
+      "success_message": "This is a success message.",
+      "messages": [
+          "This is the first message.",
+          "This is the second message."
+      ]
+    },
+    "office building": {
+      "element1": "urban",
+      "element2": "office",
+      "clue": "clue2.txt",
+      "death_message": "This is a death message.",
+      "success_message": "This is a success message.",
+      "messages": [
+          "This is the first message.",
+          "This is the second message."
+      ]
+    },
+    "forest lake": {
+      "element1": "forest",
+      "element2": "water",
+      "clue": "clue2.txt",
+      "death_message": "This is a death message.",
+      "success_message": "This is a success message.",
+      "messages": [
+          "This is the first message.",
+          "This is the second message."
+      ]
+    },
+    "construction site": {
+      "element1": "office",
+      "element2": "rock",
+      "clue": "clue2.txt",
+      "death_message": "This is a death message.",
+      "success_message": "This is a success message.",
+      "messages": [
+          "This is the first message.",
+          "This is the second message."
+      ]
+    },
+    "snowy alley": {
+      "element1": "ice",
+      "element2": "urban",
+      "clue": "clue2.txt",
+      "death_message": "This is a death message.",
+      "success_message": "This is a success message.",
+      "messages": [
+          "This is the first message.",
+          "This is the second message."
+      ]
+    },
+    "cemetary": {
+      "element1": "urban",
+      "element2": "rock",
+      "clue": "clue2.txt",
+      "death_message": "This is a death message.",
+      "success_message": "This is a success message.",
+      "messages": [
+          "This is the first message.",
+          "This is the second message."
+      ]
+    },
+    "park": {
+      "element1": "urban",
+      "element2": "forest",
+      "clue": "clue2.txt",
+      "death_message": "This is a death message.",
+      "success_message": "This is a success message.",
+      "messages": [
+          "This is the first message.",
+          "This is the second message."
+      ]
+    },
+    "forest cabin": {
+      "element1": "forest",
+      "element2": "office",
       "clue": "clue2.txt",
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
@@ -24,11 +112,23 @@
     }
   },
   "investigators": {
-    "Bob": {
+    "Josh": {
+        "specialty": "office"
+    },
+    "Charlie": {
         "specialty": "ice"
     },
-    "Sally": {
+    "Hassan": {
+        "specialty": "forest"
+    },
+    "Chris": {
         "specialty": "water"
+    },
+    "Patrick": {
+        "specialty": "rock"
+    },
+    "Brian": {
+        "specialty": "urban"
     }
   }
 }
