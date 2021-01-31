@@ -6,7 +6,8 @@ import arcade
 from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
-from ..constants import ASSET_PREFIX, MUSIC_PREFIX, SPEED, CLUE_PREFIX
+from ..constants import ASSET_PREFIX, MUSIC_PREFIX, PROFILE_PREFIX, SPEED
+from ..constants import CLUE_PREFIX
 from ..resources import Location, Investigator
 
 SPRITE_SIZE = 80
@@ -44,10 +45,10 @@ class WorkerSprite(arcade.Sprite):
 
     locked = False
 
-    def __init__(self, worker):
+    def __init__(self, worker, scale):
         self.worker = worker
-        path = CLUE_PREFIX.format(worker)
-        super().__init__(path)
+        path = PROFILE_PREFIX.format('{0}.png'.format(worker.name))
+        super().__init__(path, scale)
 
 
 class GameView(arcade.View):
@@ -114,11 +115,11 @@ class GameView(arcade.View):
         ls.center_y = height - 100
         self.locationSprites.append(ls)
 
-        starter_worker = 'BrianDelight112.png'
-        ws = WorkerSprite(starter_worker)
-        ws.center_x = 2 * width / 5
-        ws.center_y = height - 100
-        self.workerSprites.append(ws)
+        for i, investigator in enumerate(self.investigators):
+            ws = WorkerSprite(investigator, 0.025)
+            ws.center_x = 2 * width / 5
+            ws.center_y = height - 100 * (i + 1)
+            self.workerSprites.append(ws)
 
     def on_draw(self):
         """Render the screen."""
