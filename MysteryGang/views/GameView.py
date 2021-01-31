@@ -6,11 +6,11 @@ import arcade
 from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
-from ..constants import ASSET_PREFIX, MUSIC_PREFIX, PROFILE_PREFIX, SPEED
-from ..constants import CLUE_PREFIX
+from ..constants import (ASSET_PREFIX, MUSIC_PREFIX, PROFILE_PREFIX, SPEED,
+                         CLUE_PREFIX, BORDER_WIDTH)
 from ..resources import Location, Investigator
 
-SPRITE_SIZE = 80
+SPRITE_SIZE = 60
 
 # A temporary hardcoding of clues
 CLUES = [
@@ -36,7 +36,7 @@ class LocationSprite(arcade.SpriteSolidColor):
     def __init__(self, location, w, h, color=None):
         self.location = location
         if color is None:
-            color = arcade.color.RED
+            color = arcade.color.GRAY
         super().__init__(w, h, color)
 
 
@@ -109,11 +109,12 @@ class GameView(arcade.View):
             self.investigators.append(Investigator(
                 self.chat_pane, name, **investigator))
 
-        starter_location = None
-        ls = LocationSprite(starter_location, SPRITE_SIZE, SPRITE_SIZE)
-        ls.center_x = 3 * width / 5
-        ls.center_y = height - 100
-        self.locationSprites.append(ls)
+        spacing = (height - BORDER_WIDTH * 2) / 6
+        for pos, loc in enumerate(self.locations):
+            ls = LocationSprite(loc, SPRITE_SIZE, SPRITE_SIZE)
+            ls.center_x = 3 * width / 5
+            ls.center_y = height - spacing * pos - SPRITE_SIZE / 2 - BORDER_WIDTH * 2
+            self.locationSprites.append(ls)
 
         for i, investigator in enumerate(self.investigators):
             ws = WorkerSprite(investigator, 0.025)
