@@ -56,13 +56,8 @@ class ChatPane(Pane):
         """Handles keys from main UI."""
         self.send_box.send_key(key)
 
-    def show_msg_buffer(self):
-        msg = self.send_box.get_current_msg()
-        print(f'[{msg}]')
-
     def send_msg_buffer(self):
         msg = self.send_box.get_current_msg()
-        self.show_msg_buffer()
         self.send_msg('Worker', msg)
         self.send_box.clear()
 
@@ -137,9 +132,14 @@ class ChatPane(Pane):
                                           cm.sender.color)
             # draw words for message
             arcade.draw_text(text, left + 4, bottom + 4 * lines, text_color,
-                             font_size=MESSAGE_FONT_SIZE, font_name=FONTS, anchor_x='left',
-                             anchor_y='bottom')
+                             font_size=MESSAGE_FONT_SIZE, font_name=FONTS,
+                             anchor_x='left', anchor_y='bottom')
             n = n + lines  # Increment messages, accounting for multilines
+
+    def mod_buffer(self, key):
+        """Edite to the msg buffer, ie. backspace."""
+        if key == 'Backspace' and len(self.send_box.content) > 0:
+            self.send_box.content.pop(len(self.send_box.content) - 1)
 
 
 class ChatBox(Pane):
@@ -164,6 +164,7 @@ class ChatBox(Pane):
 
     def clear(self):
         self.content = []
+        self.lines = 1
 
     def get_current_msg(self):
         msg = ''.join(self.content)
