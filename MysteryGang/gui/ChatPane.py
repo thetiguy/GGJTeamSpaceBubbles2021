@@ -5,11 +5,14 @@ import arcade
 from . import Pane
 from ..constants import FONTS
 
+MESSAGE_LINE_HEIGHT = 40
+
 
 class ChatPane(Pane):
     """A panel that will look and act sort of like hangouts."""
 
     messages = []
+    send_box = None
 
     def __init__(self, left, right, top, bottom, ui_manager):
         """Set up the Chat section of the game screen."""
@@ -22,8 +25,24 @@ class ChatPane(Pane):
         send_left = self.left + buff
         send_right = self.right - buff
         send_bottom = self.bottom
-        send_top = send_bottom + 40
+        send_top = send_bottom + MESSAGE_LINE_HEIGHT
         self.send_box = ChatBox(send_left, send_right, send_top, send_bottom)
+        inside_height = top - bottom - self.border_width * 2
+        msg_slots = int(inside_height / (MESSAGE_LINE_HEIGHT + 4))
+        self.max_msg_count = msg_slots - 1  # account for send box
+
+    def resize(self, left, right, top, bottom):
+        super().resize(left, right, top, bottom)
+        buff = self.border_width / 2
+        send_left = self.left + buff
+        send_right = self.right - buff
+        send_bottom = self.bottom
+        send_top = send_bottom + 40
+        if self.send_box is not None:
+            self.send_box.resize(send_left, send_right, send_top, send_bottom)
+        inside_height = top - bottom - self.border_width * 2
+        msg_slots = int(inside_height / (MESSAGE_LINE_HEIGHT + 4))
+        self.max_msg_count = msg_slots - 1  # account for send box
 
     def send_key(self, key):
         """Handles keys from main UI."""
@@ -68,9 +87,8 @@ class ChatPane(Pane):
         """Draw the chat box elements."""
         super().on_draw()
         self.send_box.on_draw()
-        msg_top = self.top - self.border_width * 2
         text_color = arcade.color.BLACK
-        for cm in self.messages:
+        for n, cm in enumerate(self.messages[0 - self.max_msg_count:]):
             # calc stuff
             if cm.sender == 'Player':
                 left = self.left + 100
@@ -80,16 +98,20 @@ class ChatPane(Pane):
                 color = arcade.color.WHITE
             right = self.right - self.border_width
 
-            height = 40  # gonna need to resize long ones later
-            bottom = msg_top - height
+            lines = 1 # gonna need to resize long ones later
+            height = MESSAGE_LINE_HEIGHT * lines
+
+            padded_line_height = (MESSAGE_LINE_HEIGHT + 4)
+            top = self.top - self.border_width - 5 - n * padded_line_height
+            bottom = top - height
 
             # draw rect
             arcade.draw_lrtb_rectangle_filled(
-                left, right, msg_top, bottom, color)
+                left, right, top, bottom, color)
 
             # draw icon (if worker)
             if cm.sender != 'Player':
-                arcade.draw_circle_filled(left - 15, msg_top - 15, 15,
+                arcade.draw_circle_filled(left - 15, top - 15, 15,
                                           arcade.color.BLUE)
 
             # draw words
@@ -98,8 +120,6 @@ class ChatPane(Pane):
                              bottom + 4,
                              text_color, font_size=16, font_name=FONTS,
                              anchor_x="left", anchor_y="bottom")
-
-            msg_top = bottom - 10  # increment for next msg
 
 
 class ChatBox(Pane):

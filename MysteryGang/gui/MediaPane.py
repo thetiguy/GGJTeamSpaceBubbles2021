@@ -8,7 +8,8 @@ class MediaPane(Pane):
     """A pane that display an image."""
 
     def __init__(self, left, right, top, bottom, asset):
-        super().__init__(left, right, top, bottom)
+        super().__init__(left, right, top, bottom,
+                         border_color=arcade.color.CATALINA_BLUE)
 
         self.display(asset)
 
