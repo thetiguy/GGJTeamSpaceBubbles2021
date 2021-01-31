@@ -4,18 +4,19 @@ from arcade.gui import UIFlatButton
 from ..constants import FONTS
 from . import Pane
 
-CLUE_HEIGHT = 16
+CLUE_HEIGHT = 20
 
 
 class ClueButton(UIFlatButton):
-    def __init__(self, text, center_x, center_y, width, height, align,
+    def __init__(self, clue, center_x, center_y, width, height, align,
                  media_pane):
-        super().__init__(text, center_x, center_y, width, height, align)
-        self.text = text
+        super().__init__( # Add some left padding for beauty!
+            ' {0}'.format(clue), center_x, center_y, width, height, align)
+        self.clue = clue
         self.media_pane = media_pane
 
     def on_click(self):
-        self.media_pane.display(self.text)
+        self.media_pane.display(self.clue)
 
 
 class CluePane(Pane):
@@ -23,8 +24,8 @@ class CluePane(Pane):
 
     def __init__(self, left, right, top, bottom, ui_manager, media_pane):
         self.buttons = []  # Super calls resize which uses this
-        super().__init__(left, right, top, bottom,
-                         border_color=arcade.color.DARK_GREEN)
+        super().__init__(
+            left, right, top, bottom, background_color=arcade.color.BLACK)
         self.media_pane = media_pane
         self.ui_manager = ui_manager
 
@@ -40,7 +41,8 @@ class CluePane(Pane):
             button = ClueButton(
                 clue, self.center_x, self.center_y - CLUE_HEIGHT * i,
                 self.width, CLUE_HEIGHT, 'left', self.media_pane)
-            button.set_style_attrs(font_name=FONTS, font_size=12)
+            button.set_style_attrs(
+                bg_color=arcade.color.BLACK, font_name=FONTS, font_size=12)
             self.ui_manager.add_ui_element(button)
             self.buttons.append(button)
             i += 1
