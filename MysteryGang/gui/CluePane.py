@@ -1,3 +1,4 @@
+import arcade
 from arcade.gui import UIFlatButton
 
 from ..constants import FONTS
@@ -22,7 +23,8 @@ class CluePane(Pane):
 
     def __init__(self, left, right, top, bottom, ui_manager, media_pane):
         self.buttons = []  # Super calls resize which uses this
-        super().__init__(left, right, top, bottom)
+        super().__init__(left, right, top, bottom,
+                         border_color=arcade.color.DARK_GREEN)
         self.media_pane = media_pane
         self.ui_manager = ui_manager
 

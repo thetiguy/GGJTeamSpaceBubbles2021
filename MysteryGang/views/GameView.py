@@ -4,8 +4,8 @@ import json
 import arcade
 from arcade.gui import UIManager
 
-from MysteryGang.gui import CluePane, MediaPane, ChatPane
-from ..constants import ASSET_PREFIX, MUSIC_PREFIX
+from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
+from ..constants import ASSET_PREFIX, BORDER_WIDTH, MUSIC_PREFIX
 from ..resources import Location, Investigator
 
 # A temporary hardcoding of clues
@@ -46,14 +46,18 @@ class GameView(arcade.View):
         """Set up the game variables. Call to re-start the game."""
         # Create your sprites and sprite lists here
         width, height = self.window.get_size()
-        self.media_pane = MediaPane(
-            1, width / 3, height - 1, height / 2, 'map.png')
-        self.clue_pane = CluePane(
+
+        self.media_pane = MediaPane(  # top left
+            1, width / 3, height, height / 2, 'map.png')
+        self.clue_pane = CluePane(  # Bottom Left
             1, width / 3, height / 2, 1, self.ui_manager, self.media_pane)
         self.clue_pane.add_clue(*CLUES)
-        self.chat_pane = ChatPane(
-            width / 3, width - 1, height - 1, 1, self.ui_manager)
-        self.panes = [self.clue_pane, self.media_pane, self.chat_pane]
+        self.app_pane = AppPane(  # Middle 1/3
+            width / 3, 2 * width / 3, height, 1, self.ui_manager)
+        self.chat_pane = ChatPane(  # Right 1/3
+            (2 * width) / 3, width - 1, height, 1, self.ui_manager)
+        self.panes = [
+            self.clue_pane, self.media_pane, self.chat_pane, self.app_pane]
 
         # Load the locations and investigators from file
         with open(ASSET_PREFIX.format('resources.json')) as f:
@@ -75,9 +79,10 @@ class GameView(arcade.View):
     def on_resize(self, width, height):
         """This method is automatically called when the window is resized."""
         self.window.on_resize(width, height)
-        self.media_pane.resize(1, width / 3, height - 1, height / 2)
+        self.media_pane.resize(1, width / 3, height, height / 2)
         self.clue_pane.resize(1, width / 3, height / 2, 1)
-        self.chat_pane.resize(width / 3, width - 1, height - 1, 1)
+        self.app_pane.resize(width / 3, 2 * width / 3, height, 1)
+        self.chat_pane.resize(2 * width / 3, width - 1, height, 1)
 
     def on_update(self, delta_time):
         """

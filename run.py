@@ -2,16 +2,13 @@
 import arcade
 
 from MysteryGang.windows import MysteryGangWindow
-
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-SCREEN_TITLE = "wooooo"
+from MysteryGang.constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE
 
 
 def main():
     """Main method"""
-    MysteryGangWindow(
-        SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, resizable=True)
+    MysteryGangWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE,
+                      resizable=True)
     arcade.run()
 
 
