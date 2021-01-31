@@ -18,6 +18,12 @@ from ..sprites import LocationSprite, WorkerSprite
 CLUES = [
     'map1.png'
 ]
+MUSIC_PHASES = [
+    'start.ogg',
+    'normal.ogg',
+    'intense.ogg',
+    'timealmostout.ogg'
+]
 
 
 class GameView(arcade.View):
@@ -37,12 +43,20 @@ class GameView(arcade.View):
         self.location_labels = []
         self.victim = SimpleNamespace(name='Ren', color=(255, 0, 0))
         self.countdown = None
+        self.music_phase = 0
+        self.music_phase_length = GAME_LENGTH * SPEED / len(MUSIC_PHASES)
 
     def on_show(self):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.color.CYAN)
-        self.window.switch_music('start.ogg')
+        self.next_music_phase()
         self.window.media_player.volume = 0.75
+
+    def next_music_phase(self, delay=None):
+        if self.music_phase < len(MUSIC_PHASES):
+            self.window.switch_music(MUSIC_PHASES[self.music_phase])
+            self.music_phase += 1
+            clock.schedule_once(self.next_music_phase, self.music_phase_length)
 
     def setup(self):
         """Set up the game variables. Call to re-start the game."""
@@ -175,7 +189,6 @@ class GameView(arcade.View):
         """
         # Update the global countdown
         if self.countdown:
-            print(self.countdown)
             self.countdown -= delta_time
             if self.countdown < 1:  # Game over
                 self.countdown = None

@@ -4,8 +4,7 @@ BORDER_WIDTH = 20
 CLUE_PREFIX = ASSET_PREFIX.format('clues/{0}')
 # How long it takes for the monster to reach the victim in seconds. This will
 # be scaled by the SPEED variable.
-#GAME_LENGTH = 50400
-GAME_LENGTH = 5400
+GAME_LENGTH = 50400
 FONTS = ['Arial', 'Cantarell-Regular']  # Cantarell makes linux fonts work
 MUSIC_PREFIX = ASSET_PREFIX.format('music/{0}')
 PROFILE_PREFIX = ASSET_PREFIX.format('profiles/{0}')
