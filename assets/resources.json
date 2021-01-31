@@ -157,7 +157,7 @@
         "specialty": "urban"
     }
   },
-  "clues": ["clue1.png", "clue2.png", "clue3.png", "clue4.ogg", "clue5.png", "clue6.png"],
+  "clues": ["clue1.png", "clue2.png", "clue3.png", "clue4.wav", "clue5.png", "clue6.png"],
   "starting_messages": [
     {"message":"Hey, guys. I need some help.","clue":null},
     {"message":"Remember that tomb I wanted to explore?","clue":null},
