@@ -16,6 +16,7 @@ class ChatPane(Pane):
     messages = []
     send_box = None
     player_worker = None
+    scroll_offset = 0
 
     def __init__(self, left, right, top, bottom, ui_manager):
         """Set up the Chat section of the game screen."""
@@ -65,62 +66,60 @@ class ChatPane(Pane):
     def send_msg(self, target, message):
         """Send a message from the chat to a worker."""
         self.messages.append(ChatMessage(self.player_worker, target, message))
-        # update worker
-        # update chat window
-        self.render_messages()
 
     def recv_msg(self, source, msg, attachment=None):
         """place a message from a working into the chat."""
         self.messages.append(ChatMessage(source, self.player_worker, msg, attachment))
-        # Update worker
-        # Do clue work
-        # Do map work
-        # update chat window
         print('Ding!')
-        self.render_messages()
-
-    def render_messages(self):
-        """display messages in the chat window."""
-
-        print('-----------------------')
-        for m in self.messages:
-            print(f'{m.chat_string()}')
-        print('-----------------------')
 
     def on_draw(self):
         """Draw the chat box elements."""
         super().on_draw()
         self.send_box.on_draw()
         text_color = arcade.color.BLACK
+
+        start_pos = self.send_box.top
         n = 1
-        for cm in self.messages[0 - self.max_msg_count:]:
+        # build chat bloops from bottom up, will solve most issues
+
+        msg_pool = self.messages
+        if self.scroll_offset > 0:
+            calc_offset = max(self.scroll_offset, 10)
+            msg_pool = self.messages[:self.scroll_offset]
+        for cm in reversed(msg_pool):
             # calc stuff
             if cm.sender == self.player_worker:
                 left = self.left + 100
                 color = arcade.color.GRAY
+                box_width = 40
             else:
                 left = self.left + self.border_width + 30
                 color = arcade.color.WHITE
+                box_width = 34
+
             right = self.right - self.border_width
-            lines = math.ceil(len(cm.text) / 40)
-            print(lines)
+            lines = math.ceil(len(cm.text) / box_width)
+
             height = MESSAGE_LINE_HEIGHT * lines
             padded_line_height = (MESSAGE_LINE_HEIGHT + 4)
-            top = self.top - self.border_width - 5 - n * padded_line_height
-            bottom = top - height
+
+            bottom = start_pos - self.border_width - 5 + n * padded_line_height
+            top = bottom + height
+
             msg_lines = []
             if lines > 1:  # insert newlines
                 words = cm.text.split()
                 while len(words) > 0:
                     chunk = ''
-                    while len(chunk) < 35 and len(words) > 0:
-                        chunk = chunk + words.pop(0)
+                    while len(chunk) < box_width - 5 and len(words) > 0:
+                        chunk = chunk + ' ' + words.pop(0)
                     msg_lines.append(chunk)
-                text = '\n'.join(msg_lines)
+                text = '\n\n'.join(msg_lines)
             else:
                 text = cm.text
 
-
+            if top > self.top - self.border_width:
+                break
             # draw rect
             arcade.draw_lrtb_rectangle_filled(
                 left, right, top, bottom, color)

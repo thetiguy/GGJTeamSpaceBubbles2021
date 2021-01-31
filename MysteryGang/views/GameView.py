@@ -223,6 +223,12 @@ class GameView(arcade.View):
         """Called whenever the user lets off a previously pressed key."""
         pass
 
+    def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
+        if self.chat_pane.left < x < self.chat_pane.right:
+            self.chat_pane.scroll_offset = max(
+                0, self.chat_pane.scroll_offset + scroll_y)
+            print(self.chat_pane.scroll_offset)
+
     def on_mouse_motion(self, x, y, dx, dy):
         """Called whenever the mouse moves."""
 
