@@ -78,7 +78,7 @@ class GameView(arcade.View):
         self.app_pane = AppPane(  # Middle 1/3
             width / 3, 2 * width / 3, height, 1, self.ui_manager)
         self.chat_pane = ChatPane(  # Right 1/3
-            (2 * width) / 3, width - 1, height, 1, self.ui_manager)
+            (2 * width) / 3, width - 1, height, 1, self.ui_manager, self)
         self.panes = [
             self.clue_pane, self.media_pane, self.chat_pane, self.app_pane]
         self.clock_position = (width * 0.35, height - BORDER_WIDTH * 2)
@@ -103,8 +103,12 @@ class GameView(arcade.View):
             self.investigators.append(Investigator(
                 self.chat_pane, self.clue_pane, name, **investigator))
         # Load messages
+        self.ending_message = data['ending_message']
         self.starting_messages = data['starting_messages']
         self.victim_death_message = data['victim_death']
+        # A placeholder to be loaded from json later
+        # self.winning_message = data['winning_message']
+        self.winning_message = '3 spirals, 5 stars, 0 suns'
 
         spacing = (height - BORDER_WIDTH * 2) / 6
         for pos, loc in enumerate(self.locations):
@@ -124,6 +128,11 @@ class GameView(arcade.View):
             investigator.worker_sprite = ws
 
         clock.schedule_once(self.send_starting_message, random() * 5 + 1, 0)
+
+    def win(self):
+        self.countdown = None
+        self.chat_pane.recv_msg(self.victim, self.ending_message)
+        clock.schedule_once(self.show_ending_view, 10)
 
     def send_starting_message(self, delay, i):
         message = self.starting_messages[i]

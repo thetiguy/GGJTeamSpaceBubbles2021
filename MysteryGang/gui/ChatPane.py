@@ -20,12 +20,13 @@ class ChatPane(Pane):
     player_worker = None
     scroll_offset = 0
 
-    def __init__(self, left, right, top, bottom, ui_manager):
+    def __init__(self, left, right, top, bottom, ui_manager, game_view):
         """Set up the Chat section of the game screen."""
         super().__init__(left, right, top, bottom,
                          background_color=arcade.color.ANTI_FLASH_WHITE,
                          border_color=arcade.color.DARK_PASTEL_GREEN)
         self.ui_manager = ui_manager
+        self.game_view = game_view
 
         buff = self.border_width / 2
         send_left = self.left + buff
@@ -69,6 +70,9 @@ class ChatPane(Pane):
         """Send a message from the chat to a worker."""
         self.messages.append(ChatMessage(self.player_worker, target, message))
         arcade.Sound(MUSIC_PREFIX.format('sfx_send_message.ogg')).play()
+
+        if message == self.game_view.winning_message:
+            self.game_view.win()
 
     def recv_msg(self, source, msg, attachment=None):
         """Place a message from a working into the chat and DING!."""
