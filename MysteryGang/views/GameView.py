@@ -108,8 +108,7 @@ class GameView(arcade.View):
         self.starting_messages = data['starting_messages']
         self.victim_death_message = data['victim_death']
         # A placeholder to be loaded from json later
-        # self.winning_message = data['winning_message']
-        self.winning_message = '3 spirals, 5 stars, 0 suns'
+        self.solution = data['solution']
 
         spacing = (height - BORDER_WIDTH * 2) / 6
         for pos, loc in enumerate(self.locations):

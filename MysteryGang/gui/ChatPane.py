@@ -66,7 +66,7 @@ class ChatPane(Pane):
         self.messages.append(ChatMessage(self.player_worker, target, message))
         arcade.Sound(MUSIC_PREFIX.format('sfx_send_message.ogg')).play()
 
-        if message == self.game_view.winning_message:
+        if message == self.game_view.solution:
             self.game_view.win()
 
     def recv_msg(self, source, msg, attachment=None):
