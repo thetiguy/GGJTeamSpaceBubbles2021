@@ -7,38 +7,15 @@ from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
 from ..constants import (ASSET_PREFIX, MUSIC_PREFIX, PROFILE_PREFIX, SPEED,
-                         BORDER_WIDTH, FONTS)
+                         BORDER_WIDTH, FONTS, SPRITE_SIZE)
 from ..resources import Location, Investigator
+from ..sprites import LocationSprite, WorkerSprite
 
-SPRITE_SIZE = 60
 
 # A temporary hardcoding of clues
 CLUES = [
     'map1.png'
 ]
-
-
-class LocationSprite(arcade.SpriteSolidColor):
-    """investiator sprite object"""
-
-    def __init__(self, location, w, h, color=None):
-        self.location = location
-        if color is None:
-            color = arcade.color.GRAY
-        super().__init__(w, h, color)
-
-
-class WorkerSprite(arcade.Sprite):
-    """investiator sprite object"""
-
-    locked = False
-
-    def __init__(self, worker, scale, center_x, center_y):
-        self.worker = worker
-        self.start_x = center_x
-        self.start_y = center_y
-        path = PROFILE_PREFIX.format('{0}.png'.format(worker.name))
-        super().__init__(path, scale, center_x=center_x, center_y=center_y)
 
 
 class GameView(arcade.View):
