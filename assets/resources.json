@@ -129,7 +129,7 @@
         "specialty": "rock"
     },
     "Brian": {
-        "color": [255, 0, 0],
+        "color": [102, 51, 153],
         "specialty": "urban"
     }
   },
