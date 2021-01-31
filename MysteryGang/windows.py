@@ -1,7 +1,7 @@
 import arcade
 
 from .views import OpeningView, GameView, PauseView, EndingView
-from .constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from .constants import MUSIC_PREFIX, SCREEN_WIDTH, SCREEN_HEIGHT
 
 
 class MysteryGangWindow(arcade.Window):
@@ -17,8 +17,17 @@ class MysteryGangWindow(arcade.Window):
         self.game_view = GameView()
         self.pause_view = PauseView(self.game_view)
         self.ending_view = EndingView(self.game_view)
+        self.media_player = None
 
         self.show_view(self.intro_view)
+
+    def switch_music(self, filename):
+        volume = self.media_player.volume if self.media_player else 1
+        old = self.media_player
+        self.media_player = arcade.Sound(
+            MUSIC_PREFIX.format(filename)).play(volume, loop=True)
+        if old:  # Do this afterwards to minimize a gap in sound
+            old.pause()
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""

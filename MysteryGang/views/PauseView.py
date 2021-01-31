@@ -7,13 +7,13 @@ VOLUME_SCALE = 100
 
 
 class VolumeInput(arcade.gui.UIInputBox):
-    def __init__(self, center_x, center_y, width, game_view):
+    def __init__(self, center_x, center_y, width, window):
         super().__init__(center_x, center_y, width)
-        self.game_view = game_view
+        self.window = window
 
     def on_ui_event(self, event):
         try:
-            self.game_view.media_player.volume = (float(self.text) /
+            self.window.media_player.volume = (float(self.text) /
                                                   VOLUME_SCALE)
         except ValueError:
             pass
@@ -29,6 +29,7 @@ class PauseView(arcade.View):
     def on_show(self):
         self.setup()
         arcade.set_background_color(arcade.color.CYAN)
+        self.window.switch_music('pause.ogg')
 
     def on_draw(self):
         width, height = self.window.get_size()
@@ -55,12 +56,12 @@ class PauseView(arcade.View):
         column_x = self.window.width / 2
 
         volume_text = str(int(
-            self.game_view.media_player.volume * VOLUME_SCALE))
+            self.window.media_player.volume * VOLUME_SCALE))
         ui_input_box = VolumeInput(
             center_x=column_x,
             center_y=slot - 100,
             width=65,
-            game_view=self.game_view
+            window=self.window
         )
         ui_input_box.set_style_attrs(font_name=FONTS)
         ui_input_box.text = volume_text

@@ -6,8 +6,8 @@ import arcade
 from arcade.gui import UIManager
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
-from ..constants import (ASSET_PREFIX, MUSIC_PREFIX, PROFILE_PREFIX, SPEED,
-                         BORDER_WIDTH, FONTS)
+from ..constants import (ASSET_PREFIX, BORDER_WIDTH, FONTS, MUSIC_PREFIX,
+                         PROFILE_PREFIX, SPEED)
 from ..resources import Location, Investigator
 
 SPRITE_SIZE = 60
@@ -52,8 +52,6 @@ class GameView(arcade.View):
         self.workerSprites = arcade.SpriteList()
         self.investigators = []
         self.ui_manager = UIManager()
-        self.media_player = arcade.Sound(
-            MUSIC_PREFIX.format('broken_loop_3.ogg')).play(loop=True)
 
         self.heldLocations = []
         self.heldWorker = None
@@ -62,6 +60,7 @@ class GameView(arcade.View):
     def on_show(self):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.color.CYAN)
+        self.window.switch_music('start.ogg')
 
     def setup(self):
         """Set up the game variables. Call to re-start the game."""
@@ -243,6 +242,7 @@ class GameView(arcade.View):
 
         hit_workers = arcade.get_sprites_at_point((x, y), self.workerSprites)
         if len(hit_workers) == 1 and not hit_workers[0].locked:
+            arcade.Sound(MUSIC_PREFIX.format('sfx_interface_click.ogg')).play()
             self.heldWorker = hit_workers[0]
             self.worker_start_pos_x = self.heldWorker.center_x
             self.worker_start_pos_y = self.heldWorker.center_y

@@ -4,7 +4,7 @@ import math
 import arcade
 
 from . import Pane
-from ..constants import FONTS
+from ..constants import FONTS, MUSIC_PREFIX
 from ..resources import Investigator
 
 MESSAGE_LINE_HEIGHT = 40
@@ -66,10 +66,12 @@ class ChatPane(Pane):
     def send_msg(self, target, message):
         """Send a message from the chat to a worker."""
         self.messages.append(ChatMessage(self.player_worker, target, message))
+        arcade.Sound(MUSIC_PREFIX.format('sfx_send_message.ogg')).play()
 
     def recv_msg(self, source, msg, attachment=None):
         """place a message from a working into the chat."""
         self.messages.append(ChatMessage(source, self.player_worker, msg, attachment))
+        arcade.Sound(MUSIC_PREFIX.format('sfx_text_notification.ogg')).play()
         print('Ding!')
 
     def on_draw(self):
