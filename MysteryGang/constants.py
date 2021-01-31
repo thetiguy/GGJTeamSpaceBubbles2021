@@ -21,3 +21,4 @@ SPRITE_SIZE = 60
 # 1, the displayed time decreases in real time. If set to larger than 1, the
 # displayed time decreases really fast. If less than 1 it decreases slowly.
 TIME_DISPLAY_FACTOR = 248
+VOLUME = 0.5
