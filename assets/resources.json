@@ -4,7 +4,7 @@
       "element1": "ice",
       "element2": "rock",
       "death_message": "The ledge here is covered in ice, but I think I can make it",
-      "success_message": "I found something buried in the ice",
+      "success_message": "I found something in the wall of the cave",
       "messages": [
           "Cavediving is hard enough when it's warm",
           "Almost slipped but I caught myself",
@@ -15,7 +15,7 @@
       "element1": "ice",
       "element2": "water",
       "death_message": "Ok, that was definitely creaking, maybe cracking, I'll just... back up... slowly...",
-      "success_message": "This is a success message.",
+      "success_message": "I found something trapped under the ice",
       "messages": [
           "Did the ice just creak?",
           "I hear something skittering on the ice... I hope its just the wind of something"
@@ -24,8 +24,8 @@
     "office building": {
       "element1": "urban",
       "element2": "office",
-      "death_message": "This is a death message.",
-      "success_message": "This is a success message.",
+      "death_message": "Hold on, the fire alarm is going off. I should be able to get out the emergency exit",
+      "success_message": "I managed to download a file from the computer",
       "messages": [
           "Hope security doesn't find me",
           "Somebody must have burnt some popcorn, ugh, hate when that happens",
@@ -35,18 +35,18 @@
     "forest lake": {
       "element1": "forest",
       "element2": "water",
-      "death_message": "This is a death message.",
-      "success_message": "This is a success message.",
+      "death_message": "Something is moving in the lake. I should be safe on the shore, but its getting closer",
+      "success_message": "I found something buried near a tree",
       "messages": [
           "This is probably nice when its not spooky",
-          "This is the second message."
+          "Somebody seems to have been digging near some of these trees"
       ]
     },
     "construction site": {
       "element1": "office",
       "element2": "rock",
-      "death_message": "This is a death message.",
-      "success_message": "This is a success message.",
+      "death_message": "I could swear I heard the crane startup, but I don't see anybody in the cab. I'm going to check it out",
+      "success_message": "Found something, it was tucked in someone's toolbox",
       "messages": [
           "Should've brought a hard hat with me",
           "OSHA would have a field day here."
@@ -55,8 +55,8 @@
     "snowy alley": {
       "element1": "ice",
       "element2": "urban",
-      "death_message": "This is a death message.",
-      "success_message": "This is a success message.",
+      "death_message": "I think someone just came in the alley, I'm hiding behind the dumpster",
+      "success_message": "I found something buried in the snow",
       "messages": [
           "It's eerily quiet when it snows like this...", "I think I see something shining in the snow",
           "Eww, I think I stepped in something... unpleasant",
@@ -88,8 +88,8 @@
     "forest cabin": {
       "element1": "forest",
       "element2": "office",
-      "death_message": "I found a recorder, some sort of notes from the researcher. I'm going to play it, I'll let you know what it says.",
-      "success_message": "This is a success message.",
+      "death_message": "I found a recorder, some sort of notes from the researcher. I'm going to play it, I'll let you know what it says",
+      "success_message": "I found something shoved in a book",
       "messages": [
           "Getting some real Evil Dead vibes here",
           "Why do the crazy researchers always choose the creepiest cabins",
@@ -99,8 +99,8 @@
     "hot spring": {
       "element1": "water",
       "element2": "rock",
-      "death_message": "This is a death message.",
-      "success_message": "This is a success message.",
+      "death_message": "I might need to check the other bath, but I thought I heard someone in there",
+      "success_message": "I found something in one of the lockers",
       "messages": [
           "I didn't know we had one of these in the area",
           "I've got to come back when they are open. I could use some relaxation after this case."
@@ -129,7 +129,7 @@
         "specialty": "rock"
     },
     "Brian": {
-        "color": [255, 0, 0],
+        "color": [102, 51, 153],
         "specialty": "urban"
     }
   },
