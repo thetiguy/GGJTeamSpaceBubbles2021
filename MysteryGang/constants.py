@@ -4,3 +4,5 @@ CLUE_PREFIX = ASSET_PREFIX.format('clues/{0}')
 MUSIC_PREFIX = ASSET_PREFIX.format('music/{0}')
 FONTS = ['Arial', 'Cantarell-Regular']
 BORDER_WIDTH = 20
+
+MORTEEVITA = True # Used for testing life and death endings
