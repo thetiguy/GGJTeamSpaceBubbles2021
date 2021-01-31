@@ -165,7 +165,7 @@
     {"message":"I went anyway and I got trapped. There's something behind me","clue":null},
     {"message":"I managed to grab a photo of it, I think it might be the Eye that Follows from the book","clue":"EyeThatFollows.png"},
     {"message":"Its coming for me but its very slow, I think it will take about 14 hours","clue":null},
-    {"message":"I'm stuck in this room, there's a door with runes on it, I'll send you a photo","clue":"door1.png"},
+    {"message":"I'm stuck in this room, there's a door with runes on it, I'll send you a photo","clue":"door.png"},
     {"message":"Chadwick Pendleton built this room, maybe you guys could find some clues?","clue":null},
     {"message":"We're on it, I know just where to send the team. Stay safe.","clue":null}
   ],
