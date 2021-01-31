@@ -137,7 +137,6 @@ class GameView(arcade.View):
 
             if loc.countdown:
                 percent_complete = 1 - (loc.countdown / loc.delay)
-                print(percent_complete)
                 arcade.draw_lrtb_rectangle_filled(
                     bar_x, bar_x + 200 * percent_complete, y - 35, y - 45, bar_fill)
 
