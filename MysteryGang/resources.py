@@ -15,6 +15,7 @@ class Location:
         self.success_message = success_message
         self.messages = messages
         self.occupied = False
+        self.countdown = None
 
         self.frequency = self.delay / len(self.messages) + 1
         self.i = -1
@@ -36,7 +37,6 @@ class Investigator:
         self.color = color
         self.specialty = specialty
 
-        self.countdown = None
         self.exhaustion = 1
         self.location_sprite = None
         self.worker_sprite = None
@@ -45,7 +45,7 @@ class Investigator:
         self.location_sprite = location_sprite
         location = location_sprite.location
         self.location = location
-        self.countdown = self.location.delay
+        self.location.countdown = self.location.delay
 
         self.chat_pane.recv_msg(
             self, 'I am going to the {0}'.format(location.name))
@@ -58,11 +58,11 @@ class Investigator:
 
         # They get tired out if it's their specialty, but they go faster
         if self.specialty in (location.element1, location.element2):
-            self.countdown = self.location.delay * 0.75
+            self.location.countdown = self.location.delay * 0.75
             self.exhaustion += 1
             clock.schedule_once(
                 self.report, self.location.frequency * 0.75,
-                self.countdown)
+                self.location.countdown)
             return
 
         # Just your average joe, taking his good old time
@@ -80,6 +80,7 @@ class Investigator:
             self.clue_pane.add_clue(self.location.clue)
             self.worker_sprite.center_x = self.worker_sprite.start_x
             self.worker_sprite.center_y = self.worker_sprite.start_y
+            self.location_sprite.location.occupied = False
         else:
             message = self.location.get_message()
             if message:

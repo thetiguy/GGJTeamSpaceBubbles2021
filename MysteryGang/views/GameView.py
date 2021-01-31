@@ -135,9 +135,11 @@ class GameView(arcade.View):
             arcade.draw_lrtb_rectangle_filled(
                 bar_x, bar_x + 200, y - 35, y - 45, bar_bg)
 
-            loc.delay
-            arcade.draw_lrtb_rectangle_filled(
-                bar_x, bar_x + 100, y - 35, y - 45, bar_fill)
+            if loc.countdown:
+                percent_complete = 1 - (loc.countdown / loc.delay)
+                print(percent_complete)
+                arcade.draw_lrtb_rectangle_filled(
+                    bar_x, bar_x + 200 * percent_complete, y - 35, y - 45, bar_fill)
 
             arcade.draw_text(
                 loc.name, label_x, y + 10, arcade.color.BLACK,
@@ -178,8 +180,11 @@ class GameView(arcade.View):
         """
         # Update each investigator's countdown
         for investigator in self.investigators:
-            if investigator.countdown and investigator.countdown > 0:
-                investigator.countdown -= delta_time
+            loc_sprite = investigator.location_sprite
+            if (loc_sprite and loc_sprite.location and
+                loc_sprite.location.countdown and
+                loc_sprite.location.countdown > 0):
+                loc_sprite.location.countdown -= delta_time
 
     def on_key_press(self, key, key_modifiers):
         """Called whenever a key on the keyboard is pressed.
@@ -244,7 +249,6 @@ class GameView(arcade.View):
         if self.heldWorker:
             hits = self.heldWorker.collides_with_list(self.locationSprites)
             if hits and not hits[0].location.occupied:
-                #self.heldWorker.worker.traverse(hits[0].location)
                 self.heldWorker.worker.traverse(hits[0])
                 self.heldWorker.locked = True
                 hits[0].location.occupied = True
