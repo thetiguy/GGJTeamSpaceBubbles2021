@@ -49,7 +49,10 @@
       "success_message": "Found something, it was tucked in someone's toolbox",
       "messages": [
           "Should've brought a hard hat with me",
-          "OSHA would have a field day here."
+          "OSHA would have a field day here.",
+          "I think someone forgot their lunch box",
+          "Mom always warned me not to play in work sites... hope she was wrong"
+
       ]
     },
     "snowy alley": {
@@ -58,7 +61,8 @@
       "death_message": "I think someone just came in the alley, I'm hiding behind the dumpster",
       "success_message": "I found something buried in the snow",
       "messages": [
-          "It's eerily quiet when it snows like this...", "I think I see something shining in the snow",
+          "It's eerily quiet when it snows like this...", 
+          "I think I see something shining in the snow",
           "Eww, I think I stepped in something... unpleasant",
           "This place reaks. I hope its the dumpster...",
           "Ok, that rat was huge. I'm a little grossed out, but kind of impressed too"
@@ -103,7 +107,9 @@
       "success_message": "I found something in one of the lockers",
       "messages": [
           "I didn't know we had one of these in the area",
-          "I've got to come back when they are open. I could use some relaxation after this case."
+          "I've got to come back when they are open. I could use some relaxation after this case.",
+          "There are a lot of lockers in here",
+          "Found where they keep the extra towels"
       ]
     }
   },
