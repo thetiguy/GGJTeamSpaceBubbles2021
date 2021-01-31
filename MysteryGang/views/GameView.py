@@ -31,12 +31,12 @@ class GameView(arcade.View):
         super().__init__()
         self.panes = []
         self.ui_manager = UIManager()
+        self.media_player = arcade.Sound(
+            MUSIC_PREFIX.format('broken_loop_3.ogg')).play(loop=True)
 
     def on_show(self):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.color.CYAN)
-        self.media_player = arcade.Sound(
-            MUSIC_PREFIX.format('broken_loop_3.ogg')).play(loop=True)
 
     def setup(self):
         """Set up the game variables. Call to re-start the game."""

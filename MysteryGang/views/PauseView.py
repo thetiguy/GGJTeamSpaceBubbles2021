@@ -62,6 +62,7 @@ class PauseView(arcade.View):
             width=65,
             game_view=self.game_view
         )
+        ui_input_box.set_style_attrs(font_name=FONTS)
         ui_input_box.text = volume_text
         ui_input_box.cursor_index = len(ui_input_box.text)
         self.ui_manager.add_ui_element(ui_input_box)
