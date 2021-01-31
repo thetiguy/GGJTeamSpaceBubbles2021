@@ -1,30 +1,43 @@
 from datetime import datetime
 
+import arcade
+
 from . import Pane
+from ..constants import FONTS
 
 
 class ChatPane(Pane):
     """A panel that will look and act sort of like hangouts."""
 
-    chat_buffer = []
     messages = []
 
     def __init__(self, left, right, top, bottom, ui_manager):
-        super().__init__(left, right, top, bottom)
+        """Set up the Chat section of the game screen."""
+        super().__init__(left, right, top, bottom,
+                         background_color=arcade.color.ANTI_FLASH_WHITE,
+                         border_color=arcade.color.DARK_PASTEL_GREEN)
+        self.ui_manager = ui_manager
+
+        buff = self.border_width / 2
+        send_left = self.left + buff
+        send_right = self.right - buff
+        send_bottom = self.bottom
+        send_top = send_bottom + 40
+        self.send_box = ChatBox(send_left, send_right, send_top, send_bottom)
 
     def send_key(self, key):
         """Handles keys from main UI."""
-        self.chat_buffer.append(key)
+        self.send_box.send_key(key)
 
     def show_msg_buffer(self):
-        msg = ''.join(self.chat_buffer)
+        msg = self.send_box.get_current_msg()
         print(f'[{msg}]')
 
     def send_msg_buffer(self):
-        msg = ''.join(self.chat_buffer)
+        msg = self.send_box.get_current_msg()
         self.show_msg_buffer()
         self.send_msg('Worker', msg)
-        self.chat_buffer = []
+        self.send_box.clear()
 
     def send_msg(self, target, message):
         """Send a message from the chat to a worker."""
@@ -43,9 +56,6 @@ class ChatPane(Pane):
         print('Ding!')
         self.render_messages()
 
-    def render_chat_input(self):
-        pass
-
     def render_messages(self):
         """display messages in the chat window."""
 
@@ -54,10 +64,81 @@ class ChatPane(Pane):
             print(f'{m.chat_string()}')
         print('-----------------------')
 
+    def on_draw(self):
+        """Draw the chat box elements."""
+        super().on_draw()
+        self.send_box.on_draw()
+        msg_top = self.top - self.border_width * 2
+        text_color = arcade.color.BLACK
+        for cm in self.messages:
+            # calc stuff
+            if cm.sender == 'Player':
+                left = self.left + 100
+                color = arcade.color.GRAY
+            else:
+                left = self.left + self.border_width + 30
+                color = arcade.color.WHITE
+            right = self.right - self.border_width
+
+            height = 40  # gonna need to resize long ones later
+            bottom = msg_top - height
+
+            # draw rect
+            arcade.draw_lrtb_rectangle_filled(
+                left, right, msg_top, bottom, color)
+
+            # draw icon (if worker)
+            if cm.sender != 'Player':
+                arcade.draw_circle_filled(left - 15, msg_top - 15, 15,
+                                          arcade.color.BLUE)
+
+            # draw words
+            arcade.draw_text(cm.text,
+                             left + 4,
+                             bottom + 4,
+                             text_color, font_size=16, font_name=FONTS,
+                             anchor_x="left", anchor_y="bottom")
+
+            msg_top = bottom - 10  # increment for next msg
+
 
 class ChatBox(Pane):
     """User types messages here"""
-    pass
+
+    content = []
+
+    def __init__(self, left, right, top, bottom):
+        """Set up the Chat section of the game screen."""
+        super().__init__(left, right, top, bottom,
+                         background_color=arcade.color.WHITE,
+                         border_color=arcade.color.DARK_GRAY,
+                         border_width=4)
+
+    def send_key(self, key):
+        self.content.append(key)
+
+    def clear(self):
+        self.content = []
+
+    def get_current_msg(self):
+        return ''.join(self.content)
+
+    def on_draw(self):
+        """Draw the chat box elements."""
+        super().on_draw()
+
+        text_color = arcade.color.BLACK
+        text = self.get_current_msg()
+
+        if text == '':
+            text = 'Send a message'
+            text_color = arcade.color.DARK_GRAY
+
+        arcade.draw_text(text,
+                         self.left + self.border_width,
+                         self.bottom + self.border_width,
+                         text_color, font_size=18, font_name=FONTS,
+                         anchor_x="left", anchor_y="bottom")
 
 
 class ChatMessage:
