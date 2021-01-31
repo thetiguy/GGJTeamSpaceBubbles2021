@@ -10,7 +10,8 @@ from pyglet import clock
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
 from ..constants import (ASSET_PREFIX, BORDER_WIDTH, FONTS, GAME_LENGTH,
-                         MUSIC_PREFIX, PROFILE_PREFIX, SPEED, SPRITE_SIZE)
+                         MUSIC_PREFIX, PROFILE_PREFIX, SPEED, SPRITE_SIZE,
+                         TIME_DISPLAY_FACTOR)
 from ..resources import Location, Investigator
 from ..sprites import LocationSprite, WorkerSprite
 
@@ -176,11 +177,12 @@ class GameView(arcade.View):
                 font_name=FONTS, anchor_x='left', anchor_y='bottom')
         # Draw countdown Clock
         if self.countdown:
-            minutes_left = self.countdown / 60
+            countdown = self.countdown * TIME_DISPLAY_FACTOR
+            minutes_left = countdown / 60
             hours_left = minutes_left / 60
             h = math.floor(hours_left)
             m = math.floor(minutes_left - 60 * h)
-            s = math.floor(self.countdown - (60 * 60 * h) - 60 * m)
+            s = math.floor(countdown - (60 * 60 * h) - 60 * m)
 
             arcade.draw_text(f'{h}:{m}:{s}', *(self.clock_position),
                              label_color, font_size=15, font_name=FONTS,

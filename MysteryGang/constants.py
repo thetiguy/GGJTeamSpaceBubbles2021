@@ -16,3 +16,8 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 SCREEN_TITLE = 'Mystery Gang'
 SPRITE_SIZE = 60
+# Time that's displayed is multiplied by this. This enables you to have time
+# go faster in game than reality when paired with the SPEED option. If set to
+# 1, the displayed time decreases in real time. If set to larger than 1, the
+# displayed time decreases really fast. If less than 1 it decreases slowly.
+TIME_DISPLAY_FACTOR = 248
