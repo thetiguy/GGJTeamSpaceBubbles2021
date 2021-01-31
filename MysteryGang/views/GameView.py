@@ -9,7 +9,6 @@ from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
 from ..constants import ASSET_PREFIX, MUSIC_PREFIX, SPEED, CLUE_PREFIX
 from ..resources import Location, Investigator
 
-
 SPRITE_SIZE = 80
 
 # A temporary hardcoding of clues
@@ -42,6 +41,8 @@ class LocationSprite(arcade.SpriteSolidColor):
 
 class WorkerSprite(arcade.Sprite):
     """investiator sprite object"""
+
+    locked = False
 
     def __init__(self, worker):
         self.worker = worker
@@ -200,8 +201,10 @@ class GameView(arcade.View):
         print('pressed x:{} y:{} @ {}'.format(x, y, now))
 
         hit_workers = arcade.get_sprites_at_point((x, y), self.workerSprites)
-        if len(hit_workers) == 1:
+        if len(hit_workers) == 1 and not hit_workers[0].locked:
             self.heldWorker = hit_workers[0]
+            self.worker_start_pos_x = self.heldWorker.center_x
+            self.worker_start_pos_y = self.heldWorker.center_y
 
     def on_mouse_release(self, x, y, button, key_modifiers):
         """Called when the user unpresses a mouse button."""
@@ -211,5 +214,9 @@ class GameView(arcade.View):
             print(hits)
             if hits:
                 self.chat_pane.recv_msg('Brian', 'I am going to the location')
+                self.heldWorker.locked = True
+            else:
+                self.heldWorker.center_x = self.worker_start_pos_x
+                self.heldWorker.center_y = self.worker_start_pos_y
 
         self.heldWorker = None
