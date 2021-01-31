@@ -79,7 +79,6 @@ class GameView(arcade.View):
         for name, investigator in data['investigators'].items():
             self.investigators.append(Investigator(
                 self.chat_pane, name, **investigator))
-        self.investigators[0].traverse(self.locations[0])
 
     def on_draw(self):
         """Render the screen."""
@@ -103,7 +102,10 @@ class GameView(arcade.View):
         Normally, you'll call update() on the sprite lists that
         need it.
         """
-        pass
+        # Update each investigator's countdown
+        for investigator in self.investigators:
+            if investigator.countdown and investigator.countdown > 0:
+                investigator.countdown -= delta_time
 
     def on_key_press(self, key, key_modifiers):
         """Called whenever a key on the keyboard is pressed.

@@ -15,8 +15,8 @@ class Location:
         self.success_message = success_message
         self.messages = messages
 
-        self.i = -1
         self.frequency = self.delay / len(self.messages) + 1
+        self.i = -1
 
     def get_message(self):
         """Get's an update during the journey.
@@ -32,10 +32,13 @@ class Investigator:
         self.chat_pane = chat_pane
         self.name = name
         self.specialty = specialty
+
+        self.countdown = None
         self.exhaustion = 1
 
     def traverse(self, location):
         self.location = location
+        self.countdown = self.location.delay
 
         # No, Mr. Bond, I expect you to die!
         rand = random()
@@ -45,10 +48,11 @@ class Investigator:
 
         # They get tired out if it's their specialty, but they go faster
         if self.specialty in (location.element1, location.element2):
+            self.countdown = self.location.delay * 0.75
             self.exhaustion += 1
             clock.schedule_once(
                 self.report, self.location.frequency * 0.75,
-                self.location.delay * 0.75)
+                self.countdown)
             return
 
         # Just your average joe, taking his good old time
