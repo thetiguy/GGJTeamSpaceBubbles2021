@@ -117,6 +117,10 @@ class GameView(arcade.View):
             # hide ui elements, call register_handlers to reverse
             self.ui_manager.unregister_handlers()
             self.window.show_view(pause)
+        elif is_ctrl and key == arcade.key.E: # Force an EndingView.py for testing
+            ending = self.window.ending_view
+            self.ui_manager.unregister_handlers()
+            self.window.show_view(ending)
         else:
             key_val = 'not mapped yet'
 
