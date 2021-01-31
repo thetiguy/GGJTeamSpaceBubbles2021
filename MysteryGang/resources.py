@@ -14,6 +14,7 @@ class Location:
         self.death_message = death_message
         self.success_message = success_message
         self.messages = messages
+        self.occupied = False
 
         self.frequency = self.delay / len(self.messages) + 1
         self.i = -1

@@ -124,8 +124,18 @@ class GameView(arcade.View):
             pane.on_draw()
         self.locationSprites.draw()
         self.workerSprites.draw()
+        bar_bg = arcade.color.GRAY
+        bar_fill = arcade.color.DARK_BLUE
         for x, y, loc in self.location_labels:
             label_x = x + SPRITE_SIZE / 2 + 8
+            bar_x = x - SPRITE_SIZE / 2
+            arcade.draw_lrtb_rectangle_filled(
+                bar_x, bar_x + 200, y - 35, y - 45, bar_bg)
+
+            loc.delay
+            arcade.draw_lrtb_rectangle_filled(
+                bar_x, bar_x + 100, y - 35, y - 45, bar_fill)
+
             arcade.draw_text(
                 loc.name, label_x, y + 10, arcade.color.BLACK,
                 font_size = 15, font_name = FONTS, anchor_x = 'left',
@@ -230,9 +240,10 @@ class GameView(arcade.View):
 
         if self.heldWorker:
             hits = self.heldWorker.collides_with_list(self.locationSprites)
-            if hits:
+            if hits and not hits[0].location.occupied:
                 self.heldWorker.worker.traverse(hits[0].location)
                 self.heldWorker.locked = True
+                hits[0].location.occupied = True
             else:
                 self.heldWorker.center_x = self.worker_start_pos_x
                 self.heldWorker.center_y = self.worker_start_pos_y
