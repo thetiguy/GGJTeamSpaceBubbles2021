@@ -132,8 +132,8 @@ class ChatPane(Pane):
                                           cm.sender.color)
             # draw words for message
             arcade.draw_text(text, left + 4, bottom + 4 * lines, text_color,
-                             font_size=MESSAGE_FONT_SIZE, font_name=FONTS, anchor_x='left',
-                             anchor_y='bottom')
+                             font_size=MESSAGE_FONT_SIZE, font_name=FONTS,
+                             anchor_x='left', anchor_y='bottom')
             n = n + lines  # Increment messages, accounting for multilines
 
     def mod_buffer(self, key):
