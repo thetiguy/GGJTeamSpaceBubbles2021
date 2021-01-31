@@ -3,29 +3,26 @@
     "icy cave": {
       "element1": "ice",
       "element2": "rock",
-      "clue": "clue2.txt",
-      "death_message": "This is a death message.",
-      "success_message": "This is a success message.",
+      "death_message": "The ledge here is covered in ice, but I think I can make it",
+      "success_message": "I found something buried in the ice",
       "messages": [
-          "This is the first message.",
+          "Cavediving is hard enough when it's warm",
           "This is the second message."
       ]
     },
     "frozen lake": {
       "element1": "ice",
       "element2": "water",
-      "clue": "clue2.txt",
-      "death_message": "This is a death message.",
+      "death_message": "Ok, that was definitely creaking, I'll just... back up... slowly...",
       "success_message": "This is a success message.",
       "messages": [
-          "This is the first message.",
+          "Did the ice just creak?",
           "This is the second message."
       ]
     },
     "office building": {
       "element1": "urban",
       "element2": "office",
-      "clue": "clue2.txt",
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
@@ -36,7 +33,6 @@
     "forest lake": {
       "element1": "forest",
       "element2": "water",
-      "clue": "clue2.txt",
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
@@ -47,7 +43,6 @@
     "construction site": {
       "element1": "office",
       "element2": "rock",
-      "clue": "clue2.txt",
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
@@ -58,7 +53,6 @@
     "snowy alley": {
       "element1": "ice",
       "element2": "urban",
-      "clue": "clue2.txt",
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
@@ -69,7 +63,6 @@
     "cemetary": {
       "element1": "urban",
       "element2": "rock",
-      "clue": "clue2.txt",
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
@@ -80,7 +73,6 @@
     "park": {
       "element1": "urban",
       "element2": "forest",
-      "clue": "clue2.txt",
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
@@ -91,7 +83,6 @@
     "forest cabin": {
       "element1": "forest",
       "element2": "office",
-      "clue": "clue2.txt",
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
@@ -102,7 +93,6 @@
     "hot spring": {
       "element1": "water",
       "element2": "rock",
-      "clue": "clue3.txt",
       "death_message": "This is a death message.",
       "success_message": "This is a success message.",
       "messages": [
@@ -129,6 +119,32 @@
     },
     "Brian": {
         "specialty": "urban"
+    }
+  },
+  "clues": {
+    "clue1": {
+      "filename": "clue1.png",
+      "weight": 1
+    },
+    "clue2": {
+      "filename": "clue1.png",
+      "weight": 2
+    },
+    "clue3": {
+      "filename": "clue1.png",
+      "weight": 3
+    },
+    "clue4": {
+      "filename": "clue1.png",
+      "weight": 4
+    },
+    "clue5": {
+      "filename": "clue1.png",
+      "weight": 5
+    },
+    "clue6": {
+      "filename": "clue1.png",
+      "weight": 6
     }
   }
 }
