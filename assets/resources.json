@@ -49,7 +49,7 @@
       "success_message": "This is a success message.",
       "messages": [
           "Should've brought a hard hat with me",
-          "This is the second message."
+          "OSHA would have a field day here."
       ]
     },
     "snowy alley": {
@@ -59,14 +59,16 @@
       "success_message": "This is a success message.",
       "messages": [
           "It's eerily quiet when it snows like this...", "I think I see something shining in the snow",
-          "This is the second message."
+          "Eww, I think I stepped in something... unpleasant",
+          "This place reaks. I hope its the dumpster...",
+          "Ok, that rat was huge. I'm a little grossed out, but kind of impressed too"
       ]
     },
     "cemetary": {
       "element1": "urban",
       "element2": "rock",
       "death_message": "Hold on, I think I see someone... I'm going to ask them for help.",
-      "success_message": "This is a success message.",
+      "success_message": "I found something scrawled on the back of a gravestone",
       "messages": [
           "If I see a ghost, I am running",
           "You know, in a zombie virus outbreak, a cemetary is actually probably pretty safe."
@@ -75,11 +77,12 @@
     "park": {
       "element1": "urban",
       "element2": "forest",
-      "death_message": "This is a death message.",
-      "success_message": "This is a success message.",
+      "death_message": "I think someone is following me, I'm going to make a break for it, and see if I can get back to the street",
+      "success_message": "I found something in one of the bushes.",
       "messages": [
           "I think I heard there were drug dealers in this park at night",
-          "Why do they tell you to stay off the grass in the park. Isn't that kind of the point?"
+          "Why do they tell you to stay off the grass in the park. Isn't that kind of the point?",
+          "Huh, they have a little dog park area, that's kind of nice"
       ]
     },
     "forest cabin": {
