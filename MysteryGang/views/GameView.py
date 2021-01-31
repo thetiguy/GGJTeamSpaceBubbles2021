@@ -19,7 +19,7 @@ CLUES = [
 
 
 class GameView(arcade.View):
-    """Main view for test game."""
+    """Main view for the game."""
 
     def __init__(self):
         super().__init__()
@@ -102,7 +102,6 @@ class GameView(arcade.View):
         for pane in self.panes:
             pane.on_draw()
         self.locationSprites.draw()
-        self.workerSprites.draw()
         bar_bg = arcade.color.GRAY
         bar_fill = arcade.color.DARK_BLUE
         label_color = arcade.color.BLACK
@@ -127,6 +126,7 @@ class GameView(arcade.View):
             arcade.draw_text(
                 loc.element2, label_x, y - 30, label_color, font_size=15,
                 font_name=FONTS, anchor_x='left', anchor_y='bottom')
+        self.workerSprites.draw()
 
     def on_resize(self, width, height):
         """This method is automatically called when the window is resized."""
