@@ -18,10 +18,8 @@ class EndingView(arcade.View):
 
         # TODO: Remove before submitting game
         if self.won:
-            text = "LIFE!!!"
             backcolor = arcade.color.WHITE
         else:
-            text = "DEATH!"
             backcolor = arcade.color.BLACK
 
         arcade.set_background_color(backcolor)
@@ -35,11 +33,9 @@ class EndingView(arcade.View):
         # TODO: Remove before submitting game
         if self.won:
             text = "LIFE!!!"
-            backcolor = arcade.color.WHITE
             textcolor = arcade.color.GREEN
         else:
             text = "DEATH!"
-            backcolor = arcade.color.BLACK
             textcolor = arcade.color.RED
 
         for i in range(0, 4):

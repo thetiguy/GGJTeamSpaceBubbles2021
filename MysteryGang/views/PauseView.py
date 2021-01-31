@@ -13,8 +13,7 @@ class VolumeInput(arcade.gui.UIInputBox):
 
     def on_ui_event(self, event):
         try:
-            self.window.media_player.volume = (float(self.text) /
-                                                  VOLUME_SCALE)
+            self.window.media_player.volume = (float(self.text) / VOLUME_SCALE)
         except ValueError:
             pass
         super().on_ui_event(event)
