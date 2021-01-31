@@ -1,13 +1,15 @@
 from datetime import datetime
 import json
 from random import random, shuffle
+from types import SimpleNamespace
 
 import arcade
 from arcade.gui import UIManager
+from pyglet import clock
 
 from MysteryGang.gui import CluePane, MediaPane, ChatPane, AppPane
-from ..constants import (ASSET_PREFIX, BORDER_WIDTH, FONTS, MUSIC_PREFIX,
-                         PROFILE_PREFIX, SPEED, SPRITE_SIZE)
+from ..constants import (ASSET_PREFIX, BORDER_WIDTH, FONTS, GAME_LENGTH,
+                         MUSIC_PREFIX, PROFILE_PREFIX, SPEED, SPRITE_SIZE)
 from ..resources import Location, Investigator
 from ..sprites import LocationSprite, WorkerSprite
 
@@ -33,6 +35,8 @@ class GameView(arcade.View):
         self.heldLocations = []
         self.heldWorker = None
         self.location_labels = []
+        self.victim = SimpleNamespace(name='Ren', color=(255, 0, 0))
+        self.countdown = None
 
     def on_show(self):
         """ This is run once when we switch to this view """
@@ -76,6 +80,8 @@ class GameView(arcade.View):
         for name, investigator in data['investigators'].items():
             self.investigators.append(Investigator(
                 self.chat_pane, self.clue_pane, name, **investigator))
+        # Load starting messages
+        self.starting_messages = data['starting_messages']
 
         spacing = (height - BORDER_WIDTH * 2) / 6
         for pos, loc in enumerate(self.locations):
@@ -93,6 +99,18 @@ class GameView(arcade.View):
                 center_y=height - 100 * (i + 1))
             self.workerSprites.append(ws)
             investigator.worker_sprite = ws
+
+        clock.schedule_once(self.send_starting_message, random() * 5 + 1, 0)
+
+    def send_starting_message(self, delay, i):
+        if i == len(self.starting_messages) - 1:  # Last message
+            self.chat_pane.send_msg(
+                self.victim.name, self.starting_messages[i])
+            self.countdown = GAME_LENGTH
+        else:
+            self.chat_pane.recv_msg(self.victim, self.starting_messages[i])
+            clock.schedule_once(
+                self.send_starting_message, random() * 5 + 1, i + 1)
 
     def on_draw(self):
         """Render the screen."""
@@ -151,6 +169,10 @@ class GameView(arcade.View):
         Normally, you'll call update() on the sprite lists that
         need it.
         """
+        # Update the global countdown
+        if self.countdown:
+            self.countdown -= delta_time
+
         # Update each investigator's countdown
         for investigator in self.investigators:
             loc_sprite = investigator.location_sprite
